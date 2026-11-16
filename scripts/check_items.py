@@ -90,6 +90,11 @@ def login(page, cfg, user, pw):
     if pw in page.url or quote(pw, safe="") in page.url or "pswd=" in page.url:
         raise RuntimeError("로그인 폼이 계정 정보를 URL 로 전송했습니다. submit_selector 를 지정하세요.")
 
+    if "일치하지 않습니다" in page.content():
+        raise RuntimeError(
+            "로그인 거부: 사이트가 아이디/비밀번호 불일치를 응답했습니다. "
+            "오류 5회 시 당일 접속이 제한되므로, 브라우저에서 직접 로그인되는지 확인 후 재실행하세요.")
+
     ok_sel = cfg.get("login_success_selector")
     if ok_sel:
         page.wait_for_selector(ok_sel, timeout=timeout)
@@ -233,7 +238,7 @@ def main():
         print("등록된 키워드가 없습니다. docs 웹앱에서 키워드를 추가하세요.")
         return 0
 
-    user, pw = os.environ.get("FAMILYNET_ID"), os.environ.get("FAMILYNET_PW")
+    user, pw = (os.environ.get("FAMILYNET_ID") or "").strip(), (os.environ.get("FAMILYNET_PW") or "").strip()
     if not user or not pw:
         print("FAMILYNET_ID / FAMILYNET_PW 가 설정되지 않았습니다.", file=sys.stderr)
         return 1
