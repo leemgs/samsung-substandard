@@ -9,6 +9,10 @@ on:
         description: "SMTP 테스트 메일만 발송"
         type: boolean
         default: false
+      inspect:
+        description: "읽기 전용 점검: 페이지 번호/더보기 구조와 총 개수 출력"
+        type: boolean
+        default: false
       baseline:
         description: "현재 일치 물품을 기준선으로만 저장 (메일 미발송)"
         type: boolean
@@ -56,11 +60,12 @@ jobs:
           [ "${{ inputs.test_email }}" = "true" ] && ARGS="$ARGS --test-email"
           [ "${{ inputs.dry_run }}" = "true" ] && ARGS="$ARGS --dry-run"
           [ "${{ inputs.baseline }}" = "true" ] && ARGS="$ARGS --baseline"
+          [ "${{ inputs.inspect }}" = "true" ] && ARGS="$ARGS --inspect"
           [ "${{ inputs.preview_mail }}" = "true" ] && ARGS="$ARGS --preview-mail"
           python scripts/check_items.py $ARGS
 
       - name: Upload debug artifacts
-        if: failure()
+        if: failure() || inputs.inspect
         uses: actions/upload-artifact@v4
         with:
           name: debug

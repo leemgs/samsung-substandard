@@ -304,10 +304,61 @@ def send_mail(subject, html_body):
 
 
 # ---------------------------------------------------------------- 메인
+INSPECT_JS = """
+() => {
+  const vis = e => !!(e.offsetWidth || e.offsetHeight || e.getClientRects().length);
+  const clip = (t, n) => (t || '').replace(/\\s+/g, ' ').trim().slice(0, n);
+  const pag = Array.from(document.querySelectorAll(
+    '[class*="pagin" i], [class*="paging" i], [id*="pagin" i], [id*="paging" i], nav[aria-label*="page" i]'));
+  const more = Array.from(document.querySelectorAll('button, a')).filter(e =>
+    /더\\s*보기|load\\s*more|show\\s*more|다음|next/i.test((e.innerText || '') + ' ' + (e.getAttribute('aria-label') || '')) && vis(e));
+  const total = Array.from(document.querySelectorAll('*')).filter(e =>
+    e.children.length < 4 && /검색\\s*결과\\s*[\\d,]+\\s*개|총\\s*[\\d,]+\\s*개/.test(e.innerText || '')).map(e => clip(e.innerText, 60));
+  return {
+    pagination: pag.map(e => ({tag: e.tagName, id: e.id, cls: String(e.className), visible: vis(e),
+                               text: clip(e.innerText, 120), html: clip(e.outerHTML, 700)})),
+    more_buttons: more.map(e => ({tag: e.tagName, cls: String(e.className), text: clip(e.innerText, 40), html: clip(e.outerHTML, 300)})),
+    total_texts: [...new Set(total)].slice(0, 5),
+    page_height: document.documentElement.scrollHeight,
+  };
+}
+"""
+
+
+def run_inspect(cfg, user, pw):
+    """읽기 전용 점검: 각 목록 페이지의 페이지 번호/더보기 구조와 총 개수 문구를 출력하고 스크린샷을 남긴다."""
+    from playwright.sync_api import sync_playwright
+
+    base = os.environ.get("FAMILYNET_URL") or cfg["base_url"]
+    timeout = cfg.get("timeout_ms", 30000)
+    selector = cfg.get("item_selector") or "tr, li, article"
+    empty_text = cfg.get("empty_text") or "판매 가능한 상품이 없습니다"
+    DEBUG_DIR.mkdir(exist_ok=True)
+    with sync_playwright() as p:
+        browser = p.chromium.launch(args=["--no-sandbox"], executable_path=os.environ.get("CHROMIUM_PATH") or None)
+        page = browser.new_context(locale="ko-KR", viewport={"width": 1280, "height": 900}).new_page()
+        try:
+            login(page, cfg, user, pw)
+            for i, entry in enumerate(cfg.get("list_urls") or []):
+                entry = {"url": entry} if isinstance(entry, str) else entry
+                page.goto(urljoin(base, entry["url"]), timeout=timeout, wait_until="domcontentloaded")
+                state = wait_list_ready(page, selector, empty_text, timeout)
+                info = page.evaluate(INSPECT_JS)
+                info["items_on_page"] = page.locator(selector).count()
+                info["state"] = state
+                print(f"=== 점검 [{entry.get('category') or '-'}] {page.url}")
+                print(redact(json.dumps(info, ensure_ascii=False, indent=1), user, pw))
+                page.screenshot(path=str(DEBUG_DIR / f"inspect-{i}.png"), full_page=True)
+        finally:
+            browser.close()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--test-email", action="store_true")
+    ap.add_argument("--inspect", action="store_true",
+                    help="읽기 전용: 목록 페이지의 페이지 번호/더보기 구조와 총 개수 문구를 출력")
     ap.add_argument("--baseline", action="store_true",
                     help="현재 일치 물품을 '이미 본 것'으로만 기록하고 메일은 보내지 않음")
     ap.add_argument("--preview-mail", action="store_true",
@@ -317,6 +368,14 @@ def main():
 
     if args.test_email:
         send_mail("[등외급몰 알림] 테스트 메일", f"<p>SMTP 설정이 정상입니다. ({now})</p>")
+        return 0
+
+    if args.inspect:
+        user, pw = (os.environ.get("FAMILYNET_ID") or "").strip(), (os.environ.get("FAMILYNET_PW") or "").strip()
+        if not user or not pw:
+            print("FAMILYNET_ID / FAMILYNET_PW 가 설정되지 않았습니다.", file=sys.stderr)
+            return 1
+        run_inspect(load_json(SITE_CFG, {}), user, pw)
         return 0
 
     keywords = [k.strip() for k in load_json(KEYWORDS, {}).get("keywords", []) if k.strip()]
