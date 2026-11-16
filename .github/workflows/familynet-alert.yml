@@ -9,6 +9,14 @@ on:
         description: "SMTP 테스트 메일만 발송"
         type: boolean
         default: false
+      baseline:
+        description: "현재 일치 물품을 기준선으로만 저장 (메일 미발송)"
+        type: boolean
+        default: false
+      preview_mail:
+        description: "현재 일치 물품 최대 3건을 미리보기 메일로 발송 (상태 저장 안 함)"
+        type: boolean
+        default: false
       dry_run:
         description: "메일 발송/상태 저장 없이 결과만 확인"
         type: boolean
@@ -47,6 +55,8 @@ jobs:
           ARGS=""
           [ "${{ inputs.test_email }}" = "true" ] && ARGS="$ARGS --test-email"
           [ "${{ inputs.dry_run }}" = "true" ] && ARGS="$ARGS --dry-run"
+          [ "${{ inputs.baseline }}" = "true" ] && ARGS="$ARGS --baseline"
+          [ "${{ inputs.preview_mail }}" = "true" ] && ARGS="$ARGS --preview-mail"
           python scripts/check_items.py $ARGS
 
       - name: Upload debug artifacts

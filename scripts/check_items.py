@@ -308,6 +308,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--test-email", action="store_true")
+    ap.add_argument("--baseline", action="store_true",
+                    help="현재 일치 물품을 '이미 본 것'으로만 기록하고 메일은 보내지 않음")
+    ap.add_argument("--preview-mail", action="store_true",
+                    help="현재 일치 물품 최대 3건을 미리보기 메일로 발송 (상태 저장 안 함)")
     args = ap.parse_args()
     now = datetime.now(KST).strftime("%Y-%m-%d %H:%M KST")
 
@@ -351,7 +355,20 @@ def main():
         print(json.dumps(new, ensure_ascii=False, indent=2))
         return 0
 
-    if new:
+    if args.preview_mail:
+        if not found:
+            print("일치하는 물품이 없어 미리보기 메일을 보내지 않습니다.")
+            return 0
+        sample = found[:3]
+        send_mail(f"[등외급몰 미리보기] 일치 물품 {len(found)}건 중 {len(sample)}건 (테스트)",
+                  build_html(sample, now))
+        return 0  # 상태(seen/latest)는 저장하지 않는다
+
+    if args.baseline:
+        seen.update(r["key"] for r in found)
+        status += f" → 기준선 저장 ({len(found)}건, 메일 미발송)"
+        print(status)
+    elif new:
         send_mail(f"[등외급몰] 관심 물품 {len(new)}건 올라왔습니다", build_html(new, now))
         seen.update(r["key"] for r in new)
 
