@@ -55,6 +55,7 @@ jobs:
         with:
           name: debug
           path: debug/
+          retention-days: 1
 
       - name: Commit state
         if: success()

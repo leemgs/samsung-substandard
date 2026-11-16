@@ -21,7 +21,7 @@ from datetime import datetime, timedelta, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import quote, urljoin
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE_CFG = ROOT / "config" / "site.json"
@@ -76,18 +76,19 @@ def login(page, cfg, user, pw):
     if cfg.get("submit_selector"):
         page.locator(cfg["submit_selector"]).first.click()
     else:
-        btn = page.locator(
-            "form:has(input[type=password]) :is(button[type=submit], input[type=submit], button:not([type]))"
-        ).first
+        # 폼을 직접 submit 하지 않는다: GET 폼이면 계정이 URL 쿼리로 노출될 수 있음
+        btn = page.get_by_role("button", name=re.compile("로그인|log\\s*in|sign\\s*in", re.I)).first
+        if btn.count() == 0:
+            btn = page.locator("button[type=submit], input[type=submit]").first
         if btn.count() > 0:
             btn.click()
-        else:  # 제출 버튼이 없는 폼
-            if pw_field.evaluate("e => !!e.form"):
-                pw_field.evaluate("e => e.form.requestSubmit()")
-            else:
-                pw_field.press("Enter")
+        else:
+            pw_field.press("Enter")
     page.wait_for_timeout(1500)  # 제출 직후 페이지 전환 레이스 방지
     page.wait_for_load_state("networkidle", timeout=timeout)
+
+    if pw in page.url or quote(pw, safe="") in page.url or "pswd=" in page.url:
+        raise RuntimeError("로그인 폼이 계정 정보를 URL 로 전송했습니다. submit_selector 를 지정하세요.")
 
     ok_sel = cfg.get("login_success_selector")
     if ok_sel:
@@ -133,6 +134,15 @@ def scrape_items(page, cfg):
     return items
 
 
+def redact(text, *secrets):
+    """디버그 출력에서 계정/비밀번호(원문·URL 인코딩 포함)를 가린다."""
+    for sec in secrets:
+        for v in {sec, quote(sec, safe=""), quote(sec), quote(sec, safe="!~*'()")}:
+            if v:
+                text = text.replace(v, "***")
+    return text
+
+
 def run_scrape(cfg, user, pw):
     from playwright.sync_api import sync_playwright
 
@@ -148,7 +158,8 @@ def run_scrape(cfg, user, pw):
         except Exception:
             DEBUG_DIR.mkdir(exist_ok=True)
             page.screenshot(path=str(DEBUG_DIR / "error.png"), full_page=True)
-            (DEBUG_DIR / "error.html").write_text(page.content(), encoding="utf-8")
+            (DEBUG_DIR / "error.html").write_text(redact(page.content(), user, pw), encoding="utf-8")
+            print("실패 당시 URL:", redact(page.url, user, pw))
             raise
         finally:
             browser.close()
