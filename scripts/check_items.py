@@ -54,7 +54,50 @@ def matches_keyword(text, keyword):
 
 
 # ---------------------------------------------------------------- 스크래핑
+ALERT_SEL = ".layer-pop.active, #commonAlert.active, [role=alertdialog]"
+
+
+def visible_alert_text(page):
+    """화면을 덮고 있는 알림/안내 팝업의 문구를 반환 (없으면 None)."""
+    from playwright.sync_api import Error as PlaywrightError
+
+    try:
+        loc = page.locator(ALERT_SEL).first
+        if loc.count() > 0 and loc.is_visible():
+            return norm(loc.inner_text(timeout=2000))[:300] or "(문구 없음)"
+    except PlaywrightError:
+        pass
+    return None
+
+
+def close_alert(page):
+    """팝업의 확인/닫기 버튼을 눌러 닫는다. 닫았으면 True."""
+    from playwright.sync_api import Error as PlaywrightError
+
+    try:
+        btn = page.locator(ALERT_SEL).first.locator("button, a.btn, [class*=close]").first
+        if btn.count() > 0:
+            btn.click(timeout=3000)
+            page.wait_for_timeout(500)
+            return visible_alert_text(page) is None
+    except PlaywrightError:
+        pass
+    return False
+
+
+def save_debug(page, user, pw):
+    DEBUG_DIR.mkdir(exist_ok=True)
+    page.screenshot(path=str(DEBUG_DIR / "error.png"), full_page=True)
+    (DEBUG_DIR / "error.html").write_text(redact(page.content(), user, pw), encoding="utf-8")
+    print("실패 당시 URL:", redact(page.url, user, pw))
+    alert = visible_alert_text(page)
+    if alert:
+        print("실패 당시 팝업 문구:", redact(alert, user, pw))
+
+
 def login(page, cfg, user, pw):
+    from playwright.sync_api import TimeoutError as PlaywrightTimeout
+
     base = os.environ.get("FAMILYNET_URL") or cfg["base_url"]
     timeout = cfg.get("timeout_ms", 30000)
     page.goto(cfg.get("login_url") or base, timeout=timeout, wait_until="domcontentloaded")
@@ -74,8 +117,16 @@ def login(page, cfg, user, pw):
         ).first
     user_field.fill(user)
     pw_field.fill(pw)
+    alert = visible_alert_text(page)
+    if alert:
+        print(f"로그인 전 팝업 감지: {redact(alert, user, pw)}")
+        print("  → 팝업 닫기", "성공" if close_alert(page) else "실패")
     if cfg.get("submit_selector"):
-        page.locator(cfg["submit_selector"]).first.click()
+        try:
+            page.locator(cfg["submit_selector"]).first.click(timeout=10000)
+        except PlaywrightTimeout:
+            raise RuntimeError(
+                "로그인 버튼 클릭이 막혔습니다. 팝업: " + (redact(visible_alert_text(page) or "알 수 없음", user, pw)))
     else:
         # 폼을 직접 submit 하지 않는다: GET 폼이면 계정이 URL 쿼리로 노출될 수 있음
         btn = page.get_by_role("button", name=re.compile("로그인|log\\s*in|sign\\s*in", re.I)).first
@@ -125,7 +176,9 @@ def wait_login_result(page, cfg, pw, pw_sel):
             raise RuntimeError(
                 "로그인 거부: 사이트가 아이디/비밀번호 불일치를 응답했습니다. "
                 "오류 5회 시 당일 접속이 제한되므로, 브라우저에서 직접 로그인되는지 확인 후 재실행하세요.")
-    raise RuntimeError("로그인 실패: 제한 시간 내에 로그인이 완료되지 않았습니다. 계정/선택자를 확인하세요.")
+    alert = visible_alert_text(page)
+    raise RuntimeError("로그인 실패: 제한 시간 내에 로그인이 완료되지 않았습니다."
+                       + (f" 팝업: {redact(alert, pw)}" if alert else " 계정/선택자를 확인하세요."))
 
 
 EXTRACT_JS = """
@@ -242,10 +295,7 @@ def run_scrape(cfg, user, pw):
             login(page, cfg, user, pw)
             return scrape_items(page, cfg)
         except Exception:
-            DEBUG_DIR.mkdir(exist_ok=True)
-            page.screenshot(path=str(DEBUG_DIR / "error.png"), full_page=True)
-            (DEBUG_DIR / "error.html").write_text(redact(page.content(), user, pw), encoding="utf-8")
-            print("실패 당시 URL:", redact(page.url, user, pw))
+            save_debug(page, user, pw)
             raise
         finally:
             browser.close()
@@ -339,6 +389,7 @@ def run_inspect(cfg, user, pw):
         page = browser.new_context(locale="ko-KR", viewport={"width": 1280, "height": 900}).new_page()
         try:
             login(page, cfg, user, pw)
+            DEBUG_DIR.mkdir(exist_ok=True)
             for i, entry in enumerate(cfg.get("list_urls") or []):
                 entry = {"url": entry} if isinstance(entry, str) else entry
                 page.goto(urljoin(base, entry["url"]), timeout=timeout, wait_until="domcontentloaded")
@@ -349,6 +400,9 @@ def run_inspect(cfg, user, pw):
                 print(f"=== 점검 [{entry.get('category') or '-'}] {page.url}")
                 print(redact(json.dumps(info, ensure_ascii=False, indent=1), user, pw))
                 page.screenshot(path=str(DEBUG_DIR / f"inspect-{i}.png"), full_page=True)
+        except Exception:
+            save_debug(page, user, pw)
+            raise
         finally:
             browser.close()
 
