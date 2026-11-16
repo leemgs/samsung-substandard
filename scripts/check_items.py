@@ -153,6 +153,15 @@ EXTRACT_JS = """
 """
 
 
+def category_from_title(page):
+    """페이지 제목 '세탁건조기 | 삼성 등외급몰' 에서 카테고리명('세탁건조기')을 얻는다."""
+    try:
+        name = page.title().split("|")[0].strip()
+    except Exception:
+        return None
+    return name if name and name != "등외급몰" else None
+
+
 def wait_list_ready(page, selector, empty_text, timeout):
     """상품이 나타나거나 '빈 목록' 안내문이 보일 때까지 대기. 'items' | 'empty' | 'timeout' 반환."""
     from playwright.sync_api import Error as PlaywrightError
@@ -174,17 +183,23 @@ def wait_list_ready(page, selector, empty_text, timeout):
 def scrape_items(page, cfg):
     base = os.environ.get("FAMILYNET_URL") or cfg["base_url"]
     timeout = cfg.get("timeout_ms", 30000)
-    urls = cfg.get("list_urls") or [page.url or base]
+    entries = cfg.get("list_urls") or [page.url or base]
     selector = cfg.get("item_selector") or "tr, li, article"
     empty_text = cfg.get("empty_text") or "판매 가능한 상품이 없습니다"
     items = []
-    for url in urls:
+    for entry in entries:
+        entry = {"url": entry} if isinstance(entry, str) else entry
+        url, category = entry["url"], entry.get("category")
         if url != page.url:
             page.goto(urljoin(base, url), timeout=timeout, wait_until="domcontentloaded")
         for n in range(cfg.get("max_pages", 1)):
             state = wait_list_ready(page, selector, empty_text, timeout)
             found = page.evaluate(EXTRACT_JS, selector) if state != "empty" else []
-            print(f"  {page.url} (p{n + 1}) → {len(found)}개" + (" (빈 목록)" if state == "empty" else ""))
+            category = category or category_from_title(page)
+            for f in found:
+                f["category"] = category
+            print(f"  [{category or '-'}] {page.url} (p{n + 1}) → {len(found)}개"
+                  + (" (빈 목록)" if state == "empty" else ""))
             if state == "empty":
                 break
             if not found:
@@ -198,7 +213,7 @@ def scrape_items(page, cfg):
             page.locator(nxt).first.click()
     uniq, seen = [], set()
     for it in items:
-        k = it.get("link") or it["text"]
+        k = (it.get("category"), it.get("link") or it["text"])
         if k not in seen:
             seen.add(k)
             uniq.append(it)
@@ -245,6 +260,7 @@ def build_html(matches, checked_at):
         rows.append(
             "<tr>"
             f'<td style="padding:8px;border:1px solid #ddd">{html.escape(m["keyword"])}</td>'
+            f'<td style="padding:8px;border:1px solid #ddd">{html.escape(m.get("category") or "-")}</td>'
             f'<td style="padding:8px;border:1px solid #ddd">{img}</td>'
             f'<td style="padding:8px;border:1px solid #ddd">{html.escape(m["text"])}</td>'
             f'<td style="padding:8px;border:1px solid #ddd">{link}</td>'
@@ -255,7 +271,7 @@ def build_html(matches, checked_at):
         f"<h2>🛒 등외급몰 신규 물품 {len(matches)}건</h2>"
         f"<p>확인 시각: {checked_at}</p>"
         '<table style="border-collapse:collapse;font-size:14px">'
-        "<tr><th>키워드</th><th>이미지</th><th>물품 정보</th><th>링크</th></tr>"
+        "<tr><th>키워드</th><th>카테고리</th><th>이미지</th><th>물품 정보</th><th>링크</th></tr>"
         + "".join(rows)
         + "</table></div>"
     )
@@ -314,14 +330,17 @@ def main():
     print(f"수집한 항목 {len(items)}개, 키워드 {len(keywords)}개")
 
     seen = set(load_json(SEEN, {}).get("seen", []))
-    found, new = [], []
+    found, new, found_keys = [], [], set()
     for it in items:
         for kw in keywords:
-            if not matches_keyword(it["text"], kw):
+            if not matches_keyword(f'{it.get("category") or ""} {it["text"]}', kw):
                 continue
             key = hashlib.sha1(f'{kw}|{norm(it["text"])}|{it.get("link")}'.encode()).hexdigest()
-            rec = {"keyword": kw, "text": it["text"][:300], "link": it.get("link"),
-                   "image": it.get("image"), "key": key}
+            if key in found_keys:  # 같은 상품이 여러 카테고리에 있어도 한 번만
+                continue
+            found_keys.add(key)
+            rec = {"keyword": kw, "category": it.get("category"), "text": it["text"][:300],
+                   "link": it.get("link"), "image": it.get("image"), "key": key}
             found.append(rec)
             if key not in seen:
                 new.append(rec)

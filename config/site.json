@@ -7,8 +7,14 @@
   "submit_selector": "#loginBtn",
   "login_success_selector": null,
   "list_urls": [
-    "https://www.familynet.kr/laundry-combo/all-laundry-combo/",
-    "https://www.familynet.kr/monitor/all-monitor/"
+    {
+      "url": "https://www.familynet.kr/laundry-combo/all-laundry-combo/",
+      "category": "세탁건조기"
+    },
+    {
+      "url": "https://www.familynet.kr/monitor/all-monitor/",
+      "category": "모니터"
+    }
   ],
   "item_selector": ".item-inner",
   "next_page_selector": null,

@@ -74,7 +74,7 @@
       $("status").textContent = l.checked_at ? `마지막 확인: ${l.checked_at} · ${l.status}` : "아직 실행 기록이 없습니다.";
       $("matches").innerHTML = (l.matches || []).map((m) => `
         <div class="card">${m.image ? `<img src="${esc(m.image)}" alt="">` : ""}
-        <div><span class="tag">${esc(m.keyword)}</span><div>${esc(m.text)}</div>
+        <div><span class="tag">${esc(m.keyword)}</span>${m.category ? ` <small>${esc(m.category)}</small>` : ""}<div>${esc(m.text)}</div>
         ${m.link ? `<a href="${esc(m.link)}" target="_blank" rel="noopener">바로가기</a>` : ""}</div></div>`).join("");
     } catch { $("status").textContent = "결과를 불러오지 못했습니다."; }
   }
