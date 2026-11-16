@@ -30,6 +30,7 @@ KEYWORDS = ROOT / "docs" / "data" / "keywords.json"
 LATEST = ROOT / "docs" / "data" / "latest.json"
 SEEN = ROOT / "state" / "seen.json"
 DEBUG_DIR = ROOT / "debug"
+EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 KST = timezone(timedelta(hours=9))
 
 
@@ -187,7 +188,11 @@ def send_mail(subject, html_body):
     # 웹앱에서 지정한 수신 주소가 있으면 우선 사용
     extra = load_json(KEYWORDS, {}).get("notify_email")
     if extra:
-        recipients = [r.strip() for r in re.split(r"[,;\s]+", extra) if r.strip()]
+        valid = [r for r in re.split(r"[,;\s]+", extra) if EMAIL_RE.match(r)]
+        if valid:
+            recipients = valid
+        else:
+            print(f"경고: 웹앱 수신 이메일 '{extra}' 가 올바르지 않아 config/email.json 값을 사용합니다.")
     msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
     msg["From"] = mail.get("email_from") or mail["smtp_user"]

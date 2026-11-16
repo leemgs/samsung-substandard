@@ -46,6 +46,8 @@
   $("save").onclick = async () => {
     const repo = $("repo").value.trim(), token = $("token").value.trim();
     if (!/^[\w.-]+\/[\w.-]+$/.test(repo) || !token) return msg("저장소(owner/repo)와 토큰을 입력하세요.", true);
+    const em = $("notify").value.trim();
+    if (em && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) return msg("수신 이메일 형식이 올바르지 않습니다.", true);
     ls.set("repo", repo); ls.set("token", token);
     const url = `https://api.github.com/repos/${repo}/contents/${PATH}`;
     const h = { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" };
