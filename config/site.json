@@ -6,7 +6,10 @@
   "password_selector": "#inpUserPassword",
   "submit_selector": "#loginBtn",
   "login_success_selector": null,
-  "list_urls": [],
+  "list_urls": [
+    "https://www.familynet.kr/laundry-combo/all-laundry-combo/",
+    "https://www.familynet.kr/monitor/all-monitor/"
+  ],
   "item_selector": ".item-inner",
   "next_page_selector": null,
   "max_pages": 5,

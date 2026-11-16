@@ -154,7 +154,13 @@ def scrape_items(page, cfg):
             page.goto(urljoin(base, url), timeout=timeout, wait_until="domcontentloaded")
         for n in range(cfg.get("max_pages", 1)):
             page.wait_for_load_state("networkidle", timeout=timeout)
-            items.extend(page.evaluate(EXTRACT_JS, selector))
+            found = page.evaluate(EXTRACT_JS, selector)
+            print(f"  {page.url} (p{n + 1}) → {len(found)}개")
+            if not found:
+                raise RuntimeError(
+                    f"수집 0건: {page.url} 에서 item_selector({selector!r}) 와 일치하는 상품이 없습니다. "
+                    "사이트 구조가 다르거나 변경되었을 수 있습니다.")
+            items.extend(found)
             nxt = cfg.get("next_page_selector")
             if not nxt or page.locator(nxt).count() == 0:
                 break
