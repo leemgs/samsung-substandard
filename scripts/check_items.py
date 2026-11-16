@@ -155,6 +155,7 @@ def wait_login_result(page, cfg, pw, pw_sel):
 
     ok_sel = cfg.get("login_success_selector")
     deadline = time.time() + max(cfg.get("timeout_ms", 30000), 30000) / 1000
+    shown = set()
     while time.time() < deadline:
         page.wait_for_timeout(500)
         try:
@@ -164,6 +165,14 @@ def wait_login_result(page, cfg, pw, pw_sel):
                 rejected = True
             else:
                 rejected = False
+                # 로그인 후 뜨는 안내 팝업(예: 상품 등재 기간 안내)은 확인을 눌러 진행한다
+                notice = visible_alert_text(page)
+                if notice:
+                    if notice not in shown:
+                        shown.add(notice)
+                        print(f"안내 팝업: {redact(notice, pw)}")
+                    close_alert(page)
+                    continue
                 if ok_sel:
                     if page.locator(ok_sel).count() > 0:
                         return
@@ -484,6 +493,14 @@ def main():
     elif new:
         send_mail(f"[등외급몰] 관심 물품 {len(new)}건 올라왔습니다", build_html(new, now))
         seen.update(r["key"] for r in new)
+
+    # 게시판용 부가 정보: 최초 확인일(이전 기록 유지)과 이번 실행에서의 신규 여부
+    prev_seen = {m.get("link"): m.get("first_seen") for m in load_json(LATEST, {}).get("matches", [])}
+    today = datetime.now(KST).strftime("%Y-%m-%d")
+    new_keys = set() if args.baseline else {r["key"] for r in new}
+    for r in found:
+        r["first_seen"] = prev_seen.get(r["link"]) or today
+        r["is_new"] = r["key"] in new_keys
 
     SEEN.write_text(json.dumps({"seen": sorted(seen)}, ensure_ascii=False, indent=1), encoding="utf-8")
     LATEST.write_text(json.dumps(

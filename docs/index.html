@@ -44,7 +44,25 @@
   <section>
     <h2>③ 최근 확인 결과</h2>
     <p id="status" class="hint">불러오는 중…</p>
-    <div id="matches"></div>
+    <div class="board-bar">
+      <span id="total" aria-live="polite">총 0건</span>
+      <label class="size">페이지당
+        <select id="page-size" aria-label="페이지당 표시 개수">
+          <option>10</option><option selected>20</option><option>30</option>
+          <option>50</option><option>70</option><option>100</option>
+        </select>개
+      </label>
+    </div>
+    <div class="table-wrap">
+      <table class="board">
+        <thead><tr>
+          <th class="num">번호</th><th class="cat">카테고리</th><th>상품</th>
+          <th class="price">가격</th><th class="date">최초 확인</th>
+        </tr></thead>
+        <tbody id="matches"></tbody>
+      </table>
+    </div>
+    <nav id="pager" class="pager" aria-label="페이지 이동"></nav>
   </section>
   <footer>
     <a href="https://github.com/leemgs/samsung-substandard" target="_blank" rel="noopener">GitHub: https://github.com/leemgs/samsung-substandard</a>

@@ -23,3 +23,36 @@ footer{margin-top:24px;text-align:center;font-size:13px;color:var(--mut)}
 footer a{color:var(--accent)}
 .notice{display:flex;flex-direction:column;gap:2px;margin-top:16px;padding:12px 16px;border:1px solid var(--accent);border-left-width:4px;border-radius:12px;background:var(--card)}
 .notice small{color:var(--mut)}
+
+.board-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:8px 0;font-size:14px;color:var(--mut)}
+.board-bar select{width:auto;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);font:inherit}
+.table-wrap{overflow-x:auto}
+.board{width:100%;border-collapse:collapse;font-size:14px}
+.board th{padding:8px;border-top:2px solid var(--fg);border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+.board td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+.board .num{width:56px;text-align:center;color:var(--mut)}
+.board .price,.board .date{white-space:nowrap}
+.board .cat{white-space:nowrap}
+.board .pwrap{display:flex;gap:10px;align-items:center;min-width:240px}
+.board .thumb{width:56px;height:56px;flex:none;border-radius:6px;background:var(--bg);overflow:hidden}
+.board .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.board .prod small{display:block;color:var(--mut);margin-top:2px}
+.board .prod a{color:var(--fg);font-weight:600;text-decoration:none}
+.board .prod a:hover{text-decoration:underline;color:var(--accent)}
+.board .empty{text-align:center;color:var(--mut);padding:24px}
+.new{display:inline-block;background:#d92d20;color:#fff;border-radius:4px;padding:0 5px;font-size:11px;font-weight:700}
+.pager{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;margin-top:14px}
+.pager button{min-width:36px;padding:6px 10px;background:transparent;color:var(--fg);border:1px solid var(--line)}
+.pager button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.pager button:disabled{opacity:.4;cursor:default}
+.pager .gap{align-self:center;color:var(--mut)}
+@media (max-width:640px){
+  .board thead{display:none}
+  .board,.board tbody,.board tr,.board td{display:block;width:100%}
+  .board tr{border-bottom:1px solid var(--line);padding:8px 0}
+  .board td{border:0;padding:3px 0}
+  .board .num{width:auto;text-align:left}
+  .board .num::before,.board .cat::before,.board .price::before,.board .date::before{content:attr(data-label) " · ";color:var(--mut)}
+  .board .pwrap{min-width:0}
+  .board .cat{white-space:normal}
+}
