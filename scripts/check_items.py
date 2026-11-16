@@ -95,6 +95,25 @@ def save_debug(page, user, pw):
         print("실패 당시 팝업 문구:", redact(alert, user, pw))
 
 
+REG_BLOCK_RE = re.compile(r"등재\s*(기간|시간)")
+
+
+def registration_block_error(alert):
+    return RuntimeError(
+        "등외급몰이 상품 등재 시간(화요일 00:00~12:00 KST)에는 로그인을 막고 있습니다. "
+        f"사이트 안내: {alert} → 등재 시간이 끝난 뒤(12:00 이후) 다시 실행하세요.")
+
+
+def wait_registration_block(page, tries=5):
+    """로그인 화면에 '등재 기간' 차단 팝업이 뜨는지 잠시 기다리며 확인 (뜨면 문구 반환)."""
+    for _ in range(tries):
+        alert = visible_alert_text(page)
+        if alert and REG_BLOCK_RE.search(alert):
+            return alert
+        page.wait_for_timeout(400)
+    return None
+
+
 def login(page, cfg, user, pw):
     from playwright.sync_api import TimeoutError as PlaywrightTimeout
 
@@ -115,6 +134,9 @@ def login(page, cfg, user, pw):
         user_field = page.locator(
             "input[type=text], input[type=email], input:not([type])"
         ).first
+    blocked = wait_registration_block(page)
+    if blocked:
+        raise registration_block_error(blocked)
     user_field.fill(user)
     pw_field.fill(pw)
     alert = visible_alert_text(page)
@@ -167,6 +189,8 @@ def wait_login_result(page, cfg, pw, pw_sel):
                 rejected = False
                 # 로그인 후 뜨는 안내 팝업(예: 상품 등재 기간 안내)은 확인을 눌러 진행한다
                 notice = visible_alert_text(page)
+                if notice and REG_BLOCK_RE.search(notice):
+                    raise registration_block_error(notice)
                 if notice:
                     if notice not in shown:
                         shown.add(notice)
