@@ -378,6 +378,9 @@ INSPECT_JS = """
                                text: clip(e.innerText, 120), html: clip(e.outerHTML, 700)})),
     more_buttons: more.map(e => ({tag: e.tagName, cls: String(e.className), text: clip(e.innerText, 40), html: clip(e.outerHTML, 300)})),
     total_texts: [...new Set(total)].slice(0, 5),
+    category_links: [...new Set(Array.from(document.querySelectorAll('a[href]'))
+      .filter(a => a.getAttribute('href').includes('/all-'))
+      .map(a => clip(a.innerText, 30) + ' -> ' + a.getAttribute('href')))].slice(0, 60),
     page_height: document.documentElement.scrollHeight,
   };
 }
