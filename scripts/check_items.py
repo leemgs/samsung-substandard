@@ -58,7 +58,7 @@ def login(page, cfg, user, pw):
     base = os.environ.get("FAMILYNET_URL") or cfg["base_url"]
     timeout = cfg.get("timeout_ms", 30000)
     page.goto(cfg.get("login_url") or base, timeout=timeout, wait_until="domcontentloaded")
-    page.wait_for_load_state("networkidle", timeout=timeout)
+    settle(page)
 
     pw_sel = cfg.get("password_selector") or "input[type=password]"
     pw_field = page.locator(pw_sel).first
@@ -88,6 +88,16 @@ def login(page, cfg, user, pw):
     wait_login_result(page, cfg, pw, pw_sel)
 
 
+def settle(page, timeout=8000):
+    """네트워크가 잠잠해질 때까지 잠시 대기하되, 계속 통신하는 페이지에서는 시간 초과를 무시한다."""
+    from playwright.sync_api import TimeoutError as PlaywrightTimeout
+
+    try:
+        page.wait_for_load_state("networkidle", timeout=timeout)
+    except PlaywrightTimeout:
+        pass
+
+
 def wait_login_result(page, cfg, pw, pw_sel):
     """로그인 처리(AJAX+리다이렉트)가 끝날 때까지 폴링하며 성공/거부/시간초과를 판정한다."""
     from playwright.sync_api import Error as PlaywrightError
@@ -107,7 +117,7 @@ def wait_login_result(page, cfg, pw, pw_sel):
                     if page.locator(ok_sel).count() > 0:
                         return
                 elif page.locator(pw_sel).count() == 0 or not page.locator(pw_sel).first.is_visible():
-                    page.wait_for_load_state("networkidle", timeout=cfg.get("timeout_ms", 30000))
+                    settle(page)
                     return
         except PlaywrightError:
             continue  # 페이지 전환 중 컨텍스트 소멸 → 다시 확인
@@ -143,23 +153,44 @@ EXTRACT_JS = """
 """
 
 
+def wait_list_ready(page, selector, empty_text, timeout):
+    """상품이 나타나거나 '빈 목록' 안내문이 보일 때까지 대기. 'items' | 'empty' | 'timeout' 반환."""
+    from playwright.sync_api import Error as PlaywrightError
+
+    deadline = time.time() + timeout / 1000
+    while time.time() < deadline:
+        try:
+            if page.locator(selector).count() > 0:
+                page.wait_for_timeout(1000)  # 목록이 모두 그려질 시간
+                return "items"
+            if page.locator(f"text={empty_text} >> visible=true").count() > 0:
+                return "empty"
+        except PlaywrightError:
+            pass
+        page.wait_for_timeout(500)
+    return "timeout"
+
+
 def scrape_items(page, cfg):
     base = os.environ.get("FAMILYNET_URL") or cfg["base_url"]
     timeout = cfg.get("timeout_ms", 30000)
     urls = cfg.get("list_urls") or [page.url or base]
     selector = cfg.get("item_selector") or "tr, li, article"
+    empty_text = cfg.get("empty_text") or "판매 가능한 상품이 없습니다"
     items = []
     for url in urls:
         if url != page.url:
             page.goto(urljoin(base, url), timeout=timeout, wait_until="domcontentloaded")
         for n in range(cfg.get("max_pages", 1)):
-            page.wait_for_load_state("networkidle", timeout=timeout)
-            found = page.evaluate(EXTRACT_JS, selector)
-            print(f"  {page.url} (p{n + 1}) → {len(found)}개")
+            state = wait_list_ready(page, selector, empty_text, timeout)
+            found = page.evaluate(EXTRACT_JS, selector) if state != "empty" else []
+            print(f"  {page.url} (p{n + 1}) → {len(found)}개" + (" (빈 목록)" if state == "empty" else ""))
+            if state == "empty":
+                break
             if not found:
                 raise RuntimeError(
-                    f"수집 0건: {page.url} 에서 item_selector({selector!r}) 와 일치하는 상품이 없습니다. "
-                    "사이트 구조가 다르거나 변경되었을 수 있습니다.")
+                    f"수집 0건: {page.url} 에서 item_selector({selector!r}) 와 일치하는 상품도, "
+                    f"빈 목록 안내문({empty_text!r})도 찾지 못했습니다. 사이트 구조가 변경되었을 수 있습니다.")
             items.extend(found)
             nxt = cfg.get("next_page_selector")
             if not nxt or page.locator(nxt).count() == 0:

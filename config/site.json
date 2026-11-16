@@ -13,5 +13,6 @@
   "item_selector": ".item-inner",
   "next_page_selector": null,
   "max_pages": 5,
-  "timeout_ms": 30000
+  "timeout_ms": 30000,
+  "empty_text": "판매 가능한 상품이 없습니다"
 }
