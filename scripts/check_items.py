@@ -17,6 +17,7 @@ import os
 import re
 import smtplib
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -84,21 +85,37 @@ def login(page, cfg, user, pw):
             btn.click()
         else:
             pw_field.press("Enter")
-    page.wait_for_timeout(1500)  # 제출 직후 페이지 전환 레이스 방지
-    page.wait_for_load_state("networkidle", timeout=timeout)
+    wait_login_result(page, cfg, pw, pw_sel)
 
-    if pw in page.url or quote(pw, safe="") in page.url or "pswd=" in page.url:
-        raise RuntimeError("로그인 폼이 계정 정보를 URL 로 전송했습니다. submit_selector 를 지정하세요.")
+
+def wait_login_result(page, cfg, pw, pw_sel):
+    """로그인 처리(AJAX+리다이렉트)가 끝날 때까지 폴링하며 성공/거부/시간초과를 판정한다."""
+    from playwright.sync_api import Error as PlaywrightError
 
     ok_sel = cfg.get("login_success_selector")
-    if ok_sel:
-        page.wait_for_selector(ok_sel, timeout=timeout)
-    elif page.locator(pw_sel).count() > 0 and page.locator(pw_sel).first.is_visible():
-        if page.locator("text=일치하지 않습니다 >> visible=true").count() > 0:
+    deadline = time.time() + max(cfg.get("timeout_ms", 30000), 30000) / 1000
+    while time.time() < deadline:
+        page.wait_for_timeout(500)
+        try:
+            if pw in page.url or quote(pw, safe="") in page.url or "pswd=" in page.url:
+                raise RuntimeError("로그인 폼이 계정 정보를 URL 로 전송했습니다. submit_selector 를 지정하세요.")
+            if page.locator("text=일치하지 않습니다 >> visible=true").count() > 0:
+                rejected = True
+            else:
+                rejected = False
+                if ok_sel:
+                    if page.locator(ok_sel).count() > 0:
+                        return
+                elif page.locator(pw_sel).count() == 0 or not page.locator(pw_sel).first.is_visible():
+                    page.wait_for_load_state("networkidle", timeout=cfg.get("timeout_ms", 30000))
+                    return
+        except PlaywrightError:
+            continue  # 페이지 전환 중 컨텍스트 소멸 → 다시 확인
+        if rejected:
             raise RuntimeError(
                 "로그인 거부: 사이트가 아이디/비밀번호 불일치를 응답했습니다. "
                 "오류 5회 시 당일 접속이 제한되므로, 브라우저에서 직접 로그인되는지 확인 후 재실행하세요.")
-        raise RuntimeError("로그인 실패: 비밀번호 입력칸이 계속 보입니다. 계정/선택자를 확인하세요.")
+    raise RuntimeError("로그인 실패: 제한 시간 내에 로그인이 완료되지 않았습니다. 계정/선택자를 확인하세요.")
 
 
 EXTRACT_JS = """
