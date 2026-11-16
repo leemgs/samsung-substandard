@@ -31,12 +31,13 @@
 
   <section>
     <h2>② 저장</h2>
-    <p class="hint">GitHub fine-grained 토큰(이 저장소의 <b>Contents: Read and write</b>)을 입력하면 저장소에 바로 반영됩니다. 토큰은 이 브라우저에만 저장됩니다.</p>
-    <label>저장소 <input id="repo" placeholder="owner/repo"></label>
-    <label>토큰 <input id="token" type="password" placeholder="github_pat_..."></label>
+    <p class="hint">GitHub fine-grained 토큰(이 저장소의 <b>Contents: Read and write</b>)을 입력하면 저장소에 바로 반영됩니다. 토큰은 이 브라우저(localStorage)에만 저장되며, 공용 기기에서는 사용 후 <b>토큰 삭제</b>를 누르세요.</p>
+    <label>저장소 <input id="repo" placeholder="owner/repo" autocomplete="off"></label>
+    <label>토큰 <input id="token" type="password" placeholder="github_pat_..." autocomplete="off"></label>
     <div class="row">
       <button id="save">저장소에 저장</button>
       <button id="download" class="ghost">keywords.json 다운로드</button>
+      <button id="forget" class="ghost">토큰 삭제</button>
     </div>
     <p id="msg" role="status"></p>
   </section>

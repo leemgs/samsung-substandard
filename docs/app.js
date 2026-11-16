@@ -13,7 +13,11 @@
   $("repo").value = ls.get("repo") || guess;
   $("token").value = ls.get("token");
 
-  const msg = (t, err) => { $("msg").textContent = t; $("msg").style.color = err ? "#d92d20" : ""; };
+  const msg = (t, err, link, tail) => {
+    const el = $("msg"); el.textContent = t; el.style.color = err ? "#d92d20" : "";
+    if (link) { const a = document.createElement("a"); a.href = link.href; a.target = "_blank"; a.rel = "noopener"; a.textContent = link.text; el.append(a); }
+    if (tail) el.append(tail);
+  };
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   function render() {
@@ -43,24 +47,68 @@
     msg("다운로드됨 → 저장소의 docs/data/keywords.json 에 덮어써 커밋하세요.");
   };
 
+  // ---- GitHub 저장 (Contents API)
+  const API = "https://api.github.com";
+  const ghHeaders = (token, accept = "application/vnd.github+json") =>
+    ({ Authorization: `Bearer ${token}`, Accept: accept, "X-GitHub-Api-Version": "2022-11-28" });
+  const toB64 = (text) => { let bin = ""; new TextEncoder().encode(text).forEach((c) => (bin += String.fromCharCode(c))); return btoa(bin); };
+  const EXPLAIN = {
+    401: "토큰이 올바르지 않거나 만료되었습니다. 새 토큰을 발급해 다시 입력하세요.",
+    403: "권한이 없습니다. 토큰에 이 저장소의 Contents: Read and write 권한이 있어야 합니다.",
+    404: "저장소를 찾을 수 없습니다. 저장소 이름(owner/repo)과 토큰의 저장소 접근 범위를 확인하세요.",
+  };
+  async function apiError(r) {
+    const detail = (await r.json().catch(() => ({}))).message || "";
+    return new Error(`${EXPLAIN[r.status] || detail || "HTTP " + r.status} (${r.status})`);
+  }
+  const fileUrl = (repo) => `${API}/repos/${repo}/contents/${PATH}`;
+
+  // 최신 sha 를 읽어 PUT. 다른 커밋과 겹쳐 sha 가 어긋나면(409/422) 최신 sha 로 한 번 더 시도
+  async function putFile(repo, token, text, message) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const cur = await fetch(fileUrl(repo), { headers: ghHeaders(token), cache: "no-store" });
+      if (!cur.ok && cur.status !== 404) throw await apiError(cur);
+      const sha = cur.ok ? (await cur.json()).sha : undefined;
+      const r = await fetch(fileUrl(repo), {
+        method: "PUT", headers: { ...ghHeaders(token), "Content-Type": "application/json" },
+        body: JSON.stringify({ message, content: toB64(text), sha }),
+      });
+      if (r.ok) return r.json();
+      if (attempt === 0 && (r.status === 409 || r.status === 422)) continue;
+      throw await apiError(r);
+    }
+  }
+
+  let saving = false;
   $("save").onclick = async () => {
+    if (saving) return;
     const repo = $("repo").value.trim(), token = $("token").value.trim();
     if (!/^[\w.-]+\/[\w.-]+$/.test(repo) || !token) return msg("저장소(owner/repo)와 토큰을 입력하세요.", true);
     const em = $("notify").value.trim();
     if (em && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) return msg("수신 이메일 형식이 올바르지 않습니다.", true);
-    ls.set("repo", repo); ls.set("token", token);
-    const url = `https://api.github.com/repos/${repo}/contents/${PATH}`;
-    const h = { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" };
+    saving = true; $("save").disabled = true;
     try {
       msg("저장 중…");
-      const cur = await fetch(url, { headers: h });
-      const sha = cur.ok ? (await cur.json()).sha : undefined;
-      const body = { message: "chore: update keywords", sha,
-        content: btoa(unescape(encodeURIComponent(payload()))) };
-      const r = await fetch(url, { method: "PUT", headers: h, body: JSON.stringify(body) });
-      if (!r.ok) throw new Error((await r.json()).message || r.status);
-      msg("✅ 저장되었습니다. 다음 9시 실행부터 반영됩니다.");
+      const mine = keywords.slice();
+      const res = await putFile(repo, token, payload(), `chore: update keywords (${mine.slice(0, 5).join(", ")}${mine.length > 5 ? " 외" : ""})`);
+      ls.set("repo", repo); ls.set("token", token);
+      // 저장 결과를 GitHub 에서 다시 읽어 실제로 반영됐는지 확인
+      let verified = false;
+      try {
+        const back = await fetch(`${fileUrl(repo)}?ref=${res.commit.sha}`,
+          { headers: ghHeaders(token, "application/vnd.github.raw+json"), cache: "no-store" });
+        verified = back.ok && JSON.stringify(JSON.parse(await back.text()).keywords) === JSON.stringify(mine);
+      } catch {}
+      msg(`${verified ? "✅ 저장 완료 · GitHub 반영 확인됨" : "⚠️ 저장은 됐지만 반영 내용을 확인하지 못했습니다"} (키워드 ${mine.length}개) · 커밋 `,
+          !verified, { href: res.commit.html_url, text: res.commit.sha.slice(0, 7) },
+          " — 다음 실행(매일 오후 1시 KST)부터 적용됩니다. 이 페이지의 목록은 배포 후(1~2분) 갱신됩니다.");
     } catch (err) { msg("저장 실패: " + err.message, true); }
+    finally { saving = false; $("save").disabled = false; }
+  };
+
+  $("forget").onclick = () => {
+    try { localStorage.removeItem("token"); } catch {}
+    $("token").value = ""; msg("이 브라우저에 저장된 토큰을 삭제했습니다.");
   };
 
   // ---- ③ 결과 게시판 (페이지당 개수 조절 + 페이지 번호)
@@ -125,7 +173,15 @@
 
   async function load() {
     try {
-      const k = await (await fetch("data/keywords.json", { cache: "no-store" })).json();
+      let k = null;
+      const repo = $("repo").value.trim(), token = $("token").value.trim();
+      if (repo && token) {
+        try {
+          const r = await fetch(fileUrl(repo), { headers: ghHeaders(token, "application/vnd.github.raw+json"), cache: "no-store" });
+          if (r.ok) k = JSON.parse(await r.text());
+        } catch {}
+      }
+      if (!k) k = await (await fetch("data/keywords.json", { cache: "no-store" })).json();
       keywords = k.keywords || []; $("notify").value = k.notify_email || "";
     } catch {}
     render();
