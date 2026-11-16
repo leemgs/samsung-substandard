@@ -1,14 +1,16 @@
 # 🛒 등외급몰 알리미 (samsung-substandard)
 
-삼성전자 등외급 사내판매 사이트에 **매일 오전 9시(KST)** GitHub Actions가 로그인하여,
+삼성전자 등외급 사내판매 사이트에 **매일 오후 1시(KST)** GitHub Actions가 로그인하여,
 등록한 키워드와 일치하는 **신규 물품**이 올라오면 **Gmail SMTP**로 메일을 보냅니다.
 
 ```
 docs/ (GitHub Pages 웹앱: 키워드 관리·결과 확인)
-  └─ docs/data/keywords.json ─▶ .github/workflows/familynet-alert.yml (cron 0 0 * * * UTC)
+  └─ docs/data/keywords.json ─▶ .github/workflows/familynet-alert.yml (cron 0 4 * * * UTC = 13:00 KST)
                                    └─ scripts/check_items.py (Playwright 로그인 → 수집 → 매칭 → Gmail)
                                         └─ state/seen.json, docs/data/latest.json 자동 커밋
 ```
+
+> **정기 등록 시간**: 등외급 제품은 **매주 화요일 오전 00:00 ~ 12:00**에 등록됩니다. 등록이 끝난 뒤 열람할 수 있도록 확인 시각을 오후 1시(KST)로 잡았습니다.
 
 ## 설정
 1. **Secrets** (Settings → Secrets and variables → Actions)
