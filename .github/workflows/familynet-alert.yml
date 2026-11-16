@@ -39,9 +39,9 @@ jobs:
 
       - name: Run check
         env:
-          FAMILYNET_ID: ${{ secrets.FAMILYNET_ID }}
+          FAMILYNET_ID: ${{ secrets.FAMILYNET_ID || vars.FAMILYNET_ID }}
           FAMILYNET_PW: ${{ secrets.FAMILYNET_PW }}
-          FAMILYNET_URL: ${{ secrets.FAMILYNET_URL }}
+          FAMILYNET_URL: ${{ secrets.FAMILYNET_URL || vars.FAMILYNET_URL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: |
           ARGS=""
