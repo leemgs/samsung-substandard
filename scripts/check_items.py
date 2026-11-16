@@ -90,15 +90,14 @@ def login(page, cfg, user, pw):
     if pw in page.url or quote(pw, safe="") in page.url or "pswd=" in page.url:
         raise RuntimeError("로그인 폼이 계정 정보를 URL 로 전송했습니다. submit_selector 를 지정하세요.")
 
-    if "일치하지 않습니다" in page.content():
-        raise RuntimeError(
-            "로그인 거부: 사이트가 아이디/비밀번호 불일치를 응답했습니다. "
-            "오류 5회 시 당일 접속이 제한되므로, 브라우저에서 직접 로그인되는지 확인 후 재실행하세요.")
-
     ok_sel = cfg.get("login_success_selector")
     if ok_sel:
         page.wait_for_selector(ok_sel, timeout=timeout)
     elif page.locator(pw_sel).count() > 0 and page.locator(pw_sel).first.is_visible():
+        if page.locator("text=일치하지 않습니다 >> visible=true").count() > 0:
+            raise RuntimeError(
+                "로그인 거부: 사이트가 아이디/비밀번호 불일치를 응답했습니다. "
+                "오류 5회 시 당일 접속이 제한되므로, 브라우저에서 직접 로그인되는지 확인 후 재실행하세요.")
         raise RuntimeError("로그인 실패: 비밀번호 입력칸이 계속 보입니다. 계정/선택자를 확인하세요.")
 
 
@@ -110,10 +109,17 @@ EXTRACT_JS = """
   return leaf.map(e => {
     const a = e.querySelector('a[href]');
     const img = e.querySelector('img[src]');
+    let image = img ? img.src : null;
+    if (!image) {
+      for (const n of e.querySelectorAll('*')) {
+        const m = (n.getAttribute('style') || '').match(/url\\(["']?([^"')]+)/);
+        if (m) { image = new URL(m[1], location.href).href; break; }
+      }
+    }
     return {
       text: (e.innerText || '').replace(/\\s+/g, ' ').trim(),
       link: a ? a.href : null,
-      image: img ? img.src : null,
+      image,
     };
   }).filter(x => x.text.length > 0);
 }
@@ -136,7 +142,13 @@ def scrape_items(page, cfg):
             if not nxt or page.locator(nxt).count() == 0:
                 break
             page.locator(nxt).first.click()
-    return items
+    uniq, seen = [], set()
+    for it in items:
+        k = it.get("link") or it["text"]
+        if k not in seen:
+            seen.add(k)
+            uniq.append(it)
+    return uniq
 
 
 def redact(text, *secrets):

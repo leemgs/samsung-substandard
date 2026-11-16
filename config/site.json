@@ -7,7 +7,7 @@
   "submit_selector": "#loginBtn",
   "login_success_selector": null,
   "list_urls": [],
-  "item_selector": "tr, li, article, .item, .product, .goods, .card",
+  "item_selector": ".item-inner",
   "next_page_selector": null,
   "max_pages": 5,
   "timeout_ms": 30000
