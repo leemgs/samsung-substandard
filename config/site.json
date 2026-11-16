@@ -1,0 +1,14 @@
+{
+  "_comment": "사내 사이트 구조에 맞게 수정하세요. 비워 두면(null) 자동 감지를 시도합니다. 계정/비밀번호는 여기에 쓰지 말고 GitHub Secrets 사용.",
+  "base_url": "https://www.familynet.kr",
+  "login_url": null,
+  "user_selector": null,
+  "password_selector": null,
+  "submit_selector": null,
+  "login_success_selector": null,
+  "list_urls": [],
+  "item_selector": "tr, li, article, .item, .product, .goods, .card",
+  "next_page_selector": null,
+  "max_pages": 5,
+  "timeout_ms": 30000
+}

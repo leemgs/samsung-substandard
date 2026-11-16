@@ -1,0 +1,35 @@
+# 🛒 등외급몰 알리미 (samsung-substandard)
+
+삼성전자 등외급 사내판매 사이트에 **매일 오전 9시(KST)** GitHub Actions가 로그인하여,
+등록한 키워드와 일치하는 **신규 물품**이 올라오면 **Gmail SMTP**로 메일을 보냅니다.
+
+```
+docs/ (GitHub Pages 웹앱: 키워드 관리·결과 확인)
+  └─ docs/data/keywords.json ─▶ .github/workflows/familynet-alert.yml (cron 0 0 * * * UTC)
+                                   └─ scripts/check_items.py (Playwright 로그인 → 수집 → 매칭 → Gmail)
+                                        └─ state/seen.json, docs/data/latest.json 자동 커밋
+```
+
+## 설정
+1. **Secrets** (Settings → Secrets and variables → Actions)
+   | 이름 | 설명 |
+   | --- | --- |
+   | `FAMILYNET_ID` / `FAMILYNET_PW` | 사내판매 사이트 계정 |
+   | `GMAIL_APP_PASSWORD` | Gmail 앱 비밀번호 (2단계 인증 후 발급) |
+   | `FAMILYNET_URL` | (선택) 사이트 주소. 기본값은 `config/site.json`의 `base_url` |
+2. `config/email.json`에서 발신/수신 주소 수정.
+3. **사이트 주소 확인**: 요청서의 `familynetk.r`은 오타로 보여 `https://www.familynet.kr`로 가정했습니다. 다르면 `FAMILYNET_URL` 또는 `config/site.json`을 수정하세요.
+4. **Pages 켜기**: Settings → Pages → Branch `main`, 폴더 `/docs`.
+5. 웹앱에서 키워드 등록 → 저장(토큰 입력 시 저장소에 직접 커밋, 아니면 JSON 다운로드).
+
+## 사이트 구조에 맞추기 (`config/site.json`)
+사이트에 접속할 수 없는 환경에서 만들었기 때문에 로그인/목록 구조는 **자동 감지**(비밀번호 입력칸, 제출 버튼, `tr/li/article/.item…` 목록)로 시작합니다.
+첫 실행이 실패하거나 결과가 이상하면 `login_url`, `user_selector`, `password_selector`, `submit_selector`, `list_urls`, `item_selector`, `next_page_selector`를 지정하세요.
+실패 시 Actions의 `debug` 아티팩트(스크린샷/HTML)로 원인을 확인할 수 있습니다.
+
+## 실행/점검
+- Actions → *Familynet Alert* → Run workflow: `test_email`(SMTP 점검), `dry_run`(메일 없이 결과만).
+- 키워드는 공백으로 나눈 단어가 **모두** 포함될 때 일치(대소문자 무시). 한 번 알린 물품은 `state/seen.json`으로 중복 발송하지 않습니다.
+- 로컬: `pip install -r scripts/requirements.txt && playwright install chromium` 후 `python scripts/check_items.py --dry-run`.
+
+> 참고: 사내 사이트가 GitHub 호스티드 러너(외부 IP)에서 접근 불가(사내망/VPN 전용)이면 self-hosted runner가 필요합니다.

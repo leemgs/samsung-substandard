@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>등외급몰 알리미</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>🛒 등외급몰 알리미</h1>
+  <p class="sub">매일 오전 9시(KST) GitHub Actions가 로그인해 관심 물품을 확인하고, 새로 올라오면 Gmail로 알려드립니다.</p>
+
+  <section>
+    <h2>① 관심 물품 키워드</h2>
+    <form id="add-form">
+      <input id="kw" placeholder="예: 갤럭시 S24, 냉장고 (공백=모두 포함)" autocomplete="off">
+      <button>추가</button>
+    </form>
+    <ul id="kw-list"></ul>
+    <label>수신 이메일 (비우면 config/email.json 값 사용)
+      <input id="notify" type="email" placeholder="you@gmail.com">
+    </label>
+  </section>
+
+  <section>
+    <h2>② 저장</h2>
+    <p class="hint">GitHub fine-grained 토큰(이 저장소의 <b>Contents: Read and write</b>)을 입력하면 저장소에 바로 반영됩니다. 토큰은 이 브라우저에만 저장됩니다.</p>
+    <label>저장소 <input id="repo" placeholder="owner/repo"></label>
+    <label>토큰 <input id="token" type="password" placeholder="github_pat_..."></label>
+    <div class="row">
+      <button id="save">저장소에 저장</button>
+      <button id="download" class="ghost">keywords.json 다운로드</button>
+    </div>
+    <p id="msg" role="status"></p>
+  </section>
+
+  <section>
+    <h2>③ 최근 확인 결과</h2>
+    <p id="status" class="hint">불러오는 중…</p>
+    <div id="matches"></div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
