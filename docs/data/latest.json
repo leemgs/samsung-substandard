@@ -1,90 +1,240 @@
 {
-  "checked_at": "2026-11-16 21:03 KST",
-  "status": "정상 (수집 12건, 일치 12건, 신규 12건) → 기준선 저장 (12건, 메일 미발송)",
+  "checked_at": "2026-11-17 19:28 KST",
+  "status": "정상 (수집 26건, 일치 26건, 신규 14건) → 기준선 저장 25건 (모니터, 에어컨), 신규로 남김 1건, 메일 미발송",
   "matches": [
+    {
+      "keyword": "세탁건조기",
+      "category": "세탁건조기",
+      "text": "설치상품 다크스틸 Bespoke AI 콤보 25/18kg (177.8mm LCD) WD90F25AHS 2,003,800원 구매하기 세탁물 이동 없이 편리하게 하나로 세탁·건조하는 ONE 솔루션 국내 최대 용량으로 건조까지 빠르게 쾌속 코스 79분 한눈에 보여주고 자연스럽게 대화하는 AI 홈",
+      "link": "https://www.familynet.kr/laundry-combo/WD90F25AHS/WD90F25AHS/",
+      "image": "https://images.samsung.com/kdp/goods/2025/04/15/5700675b-2e15-4287-9ae7-b39bb69d2955.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": true
+    },
     {
       "keyword": "모니터",
       "category": "모니터",
       "text": "QHD 오디세이 OLED G5 180Hz (LS27FG500S) LS27FG500SKXKR 364,000원 구매하기 QD-OLED in QHD & 글레어프리 & OLED세이프가드 최대 180Hz 주사율 · 0.03ms 응답속도(GtG) · G-Sync 호환 자동 소스 스위치+ · DP&HDMI 케이블 동봉",
       "link": "https://www.familynet.kr/monitor/LS27FG500SKXKR/LS27FG500SKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2026/07/28/d862bb7f-431a-467f-ab7c-2d2393d5d458.png?$Q90_330_330_F_PNG$"
+      "image": "https://images.samsung.com/kdp/goods/2026/07/28/d862bb7f-431a-467f-ab7c-2d2393d5d458.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
     },
     {
       "keyword": "모니터",
       "category": "모니터",
       "text": "오디세이 OLED G6 G61SH QHD 240Hz (LS27HG610S) LS27HG610SKXKR 446,000원 구매하기 QD-OLED in QHD · 글레어프리 · OLED세이프가드 240Hz 주사율 · 0.03ms 응답속도(GtG) 팬톤인증 · 피봇 · 높이조절 스탠드",
       "link": "https://www.familynet.kr/monitor/LS27HG610SKXKR/LS27HG610SKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2026/07/28/26a157d0-f6be-445b-91e8-8b4ece4770e2.png?$Q90_330_330_F_PNG$"
+      "image": "https://images.samsung.com/kdp/goods/2026/07/28/26a157d0-f6be-445b-91e8-8b4ece4770e2.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
     },
     {
       "keyword": "모니터",
       "category": "모니터",
       "text": "오디세이 OLED G8 G80SH 4K 240Hz (LS27HG802S) LS27HG802SKXKR 928,000원 구매하기 QD-OLED in 4K · 글레어 프리 · OLED세이프가드+ 0.03ms 응답속도(GtG) · VESA DisplayHDR 트루블랙500 팬톤인증 · DP 2.1&USB-C",
       "link": "https://www.familynet.kr/monitor/LS27HG802SKXKR/LS27HG802SKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2026/07/28/6d0b0910-2cfc-44c8-8355-b520e12ed42b.png?$Q90_330_330_F_PNG$"
+      "image": "https://images.samsung.com/kdp/goods/2026/07/28/6d0b0910-2cfc-44c8-8355-b520e12ed42b.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
     },
     {
       "keyword": "모니터",
       "category": "모니터",
       "text": "오디세이 G8 G80HF 5K 180Hz (LS27HG806) LS27HG806EFXKR 712,000원 구매하기 5K 해상도 · Fast IPS패널 5K 180Hz/QHD 360Hz 듀얼모드 · 1ms 응답속도(GtG) HDR10+게이밍 · 지싱크 호환 · 인체공학적 스탠드",
       "link": "https://www.familynet.kr/monitor/LS27HG806EFXKR/LS27HG806EFXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2026/07/28/eecd313f-8569-48fb-acc0-80b594066e47.png?$Q90_330_330_F_PNG$"
+      "image": "https://images.samsung.com/kdp/goods/2026/07/28/eecd313f-8569-48fb-acc0-80b594066e47.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
     },
     {
       "keyword": "모니터",
       "category": "모니터",
       "text": "오디세이 OLED G8 G80SH 4K 240Hz (LS32HG802S) LS32HG802SKXKR 1,048,000원 구매하기 QD-OLED in 4K · 글레어 프리 · OLED세이프가드+ 0.03ms 응답속도(GtG) · VESA DisplayHDR 트루블랙500 팬톤인증 · DP 2.1&USB-C",
       "link": "https://www.familynet.kr/monitor/LS32HG802SKXKR/LS32HG802SKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2026/07/28/ccaad693-f993-4b71-b596-3e31f922a9a4.png?$Q90_330_330_F_PNG$"
+      "image": "https://images.samsung.com/kdp/goods/2026/07/28/ccaad693-f993-4b71-b596-3e31f922a9a4.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
     },
     {
       "keyword": "모니터",
       "category": "모니터",
       "text": "오디세이 G8 G80HS 6K 165Hz (LS32HG806) LS32HG806ESXKR 1,128,000원 구매하기 6K 해상도 · Fast IPS패널 6K 165Hz/3K 330Hz 듀얼모드 · 1ms 응답속도(GtG) HDR10+게이밍 · 지싱크 호환 · 인체공학적 스탠드",
       "link": "https://www.familynet.kr/monitor/LS32HG806ESXKR/LS32HG806ESXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2026/07/28/9895cfa1-d7c1-46fc-89d8-40e9f18ce5d5.png?$Q90_330_330_F_PNG$"
+      "image": "https://images.samsung.com/kdp/goods/2026/07/28/9895cfa1-d7c1-46fc-89d8-40e9f18ce5d5.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
+    },
+    {
+      "keyword": "모니터",
+      "category": "모니터",
+      "text": "QHD 오디세이 G5 (LS27FG500) 180Hz LS27FG500EKXKR 192,000원 구매하기 QHD 해상도 · 고속 IPS 패널 180Hz 주사율 · 1ms 응답속도(GtG) HDR10 · 피봇/높이조절 스탠드",
+      "link": "https://www.familynet.kr/monitor/LS27FG500EKXKR/LS27FG500EKXKR/",
+      "image": "https://images.samsung.com/kdp/goods/2026/01/13/98b32e4b-4ca0-431f-a01a-8be8713156c3.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
     },
     {
       "keyword": "모니터",
       "category": "모니터",
       "text": "오디세이 G7 G70F 4K 180Hz 듀얼모드 (LS27FG700) LS27FG700EKXKR 422,000원 구매하기 4K UHD 해상도 · 고속 IPS 패널 4K 180Hz & FHD 360Hz 듀얼모드 · 1ms 응답속도(GtG) G-Sync 호환 · 피봇 · 높이조절 스탠드",
       "link": "https://www.familynet.kr/monitor/LS27FG700EKXKR/LS27FG700EKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2026/01/13/a278e41f-b275-43d1-88cd-f5b51ea56d2b.png?$Q90_330_330_F_PNG$"
+      "image": "https://images.samsung.com/kdp/goods/2026/01/13/a278e41f-b275-43d1-88cd-f5b51ea56d2b.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
     },
     {
       "keyword": "모니터",
       "category": "모니터",
       "text": "2025 4K 스마트모니터 M7 블랙 (LS43FM702) LS43FM702UKXKR 375,000원 구매하기 좋아하는 OTT 콘텐츠를 바로 플레이, 스마트 TV 앱 클릭 투 써치, AVA 기능 삼성 Knox 보안, 멀티 컨트롤, AirPlay 지원",
       "link": "https://www.familynet.kr/monitor/LS43FM702UKXKR/LS43FM702UKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/10/21/965d96f4-855d-4479-9117-8a23c6ed9b00.png?$Q90_330_330_F_PNG$"
+      "image": "https://images.samsung.com/kdp/goods/2025/10/21/965d96f4-855d-4479-9117-8a23c6ed9b00.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
     },
     {
       "keyword": "모니터",
       "category": "모니터",
       "text": "QHD 오디세이 OLED G6 500Hz (LS27FG600S) LS27FG600SKXKR 719,000원 구매하기 세계최초 500Hz QD-OLED 모니터 OLED세이프가드+, OLED 3년 무상보증, 글레어프리 정확한 색 표현으로 사실감 넘치는 플레이",
       "link": "https://www.familynet.kr/monitor/LS27FG600SKXKR/LS27FG600SKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/09/23/85707c41-412e-475f-ace2-134431dbf204.png?$Q90_330_330_F_PNG$"
+      "image": "https://images.samsung.com/kdp/goods/2025/09/23/85707c41-412e-475f-ace2-134431dbf204.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
     },
     {
       "keyword": "모니터",
       "category": "모니터",
       "text": "2025 4K 스마트모니터 M1 화이트 (LS43FM1E3) LS43FM1E3UKXKR 386,000원 구매하기 좋아하는 OTT 콘텐츠를 바로 플레이, 스마트 TV 앱 클릭 투 써치, AVA 기능 삼성 Knox 보안, 멀티 컨트롤, AirPlay 지원",
       "link": "https://www.familynet.kr/monitor/LS43FM1E3UKXKR/LS43FM1E3UKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/09/18/394fad19-33bb-4ad3-8be4-69943043d5f9.png?$Q90_330_330_F_PNG$"
+      "image": "https://images.samsung.com/kdp/goods/2025/09/18/394fad19-33bb-4ad3-8be4-69943043d5f9.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
+    },
+    {
+      "keyword": "모니터",
+      "category": "모니터",
+      "text": "2025 4K 스마트모니터 M7 화이트 (LS32FM703) LS32FM703UKXKR 306,000원 구매하기 좋아하는 OTT 콘텐츠를 바로 플레이, 스마트 TV 앱 클릭 투 써치, AVA 기능 삼성 Knox 보안, 멀티 컨트롤, AirPlay 지원",
+      "link": "https://www.familynet.kr/monitor/LS32FM703UKXKR/LS32FM703UKXKR/",
+      "image": "https://images.samsung.com/kdp/goods/2025/08/26/2f65c662-f057-4084-ab80-eb83a41bbbde.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
     },
     {
       "keyword": "모니터",
       "category": "모니터",
       "text": "2025 4K 스마트모니터 M7 화이트 (LS43FM703) LS43FM703UKXKR 375,000원 구매하기 좋아하는 OTT 콘텐츠를 바로 플레이, 스마트 TV 앱 클릭 투 써치, AVA 기능 삼성 Knox 보안, 멀티 컨트롤, AirPlay 지원",
       "link": "https://www.familynet.kr/monitor/LS43FM703UKXKR/LS43FM703UKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/08/26/9d50c3c9-9630-42df-a2ab-1d36772ebc3e.png?$Q90_330_330_F_PNG$"
+      "image": "https://images.samsung.com/kdp/goods/2025/08/26/9d50c3c9-9630-42df-a2ab-1d36772ebc3e.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
     },
     {
       "keyword": "모니터",
       "category": "모니터",
       "text": "오디세이 G7(G70D) (68.4cm) LS27DG700EKXKR 365,000원 구매하기",
       "link": "https://www.familynet.kr/monitor/LS27DG700EKXKR/LS27DG700EKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/07/14/fdea1130-7639-4200-a444-eed296263a00.jpg?$Q90_330_330_F_PNG$"
+      "image": "https://images.samsung.com/kdp/goods/2025/07/14/fdea1130-7639-4200-a444-eed296263a00.jpg?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
+    },
+    {
+      "keyword": "모니터",
+      "category": "모니터",
+      "text": "오디세이 G7(G70D) (80.1cm) LS32DG700EKXKR 501,000원 구매하기 눈앞에 펼쳐지는 궁극의 비주얼 4K UHD 화면을 가득 채우는 생생한 컬러 빠른 IPS 최적의 재생 빈도수로 매끄러운 플레이 144Hz 주사율",
+      "link": "https://www.familynet.kr/monitor/LS32DG700EKXKR/LS32DG700EKXKR/",
+      "image": "https://images.samsung.com/kdp/goods/2025/07/14/040e6676-3006-4221-a7a2-178d1fbd6bfb.jpg?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
+    },
+    {
+      "keyword": "모니터",
+      "category": "모니터",
+      "text": "설치상품 뷰피니티 S80UD (92.7cm) LS37D800UAKXKR 378,000원 구매하기 USB-C로 간편한 데이터 전송 및 충전 TÜV 인증 인텔리전트 아이 케어 간편 설치 스탠드 · 높이 조절/틸트/스위블",
+      "link": "https://www.familynet.kr/monitor/LS37D800UAKXKR/LS37D800UAKXKR/",
+      "image": "https://images.samsung.com/kdp/goods/2025/07/10/0724bb57-bd0b-46f4-afb3-80a02ef01154.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
+    },
+    {
+      "keyword": "모니터",
+      "category": "모니터",
+      "text": "고해상도 뷰피니티 S7(S70ED) 화이트 (80.0 cm) LS32D701EAKXKR 207,000원 구매하기 3840x2160 해상도의 선명한 화질 UHD 해상도 놀라운 선명도와 디테일의 차이 HDR10 빠르고 쉬운 모니터 세팅 손쉬운 스탠드 설치",
+      "link": "https://www.familynet.kr/monitor/LS32D701EAKXKR/LS32D701EAKXKR/",
+      "image": "https://images.samsung.com/kdp/goods/2025/02/06/ea7564fd-4c18-494c-904c-56ec4928fa41.jpg?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
+    },
+    {
+      "keyword": "모니터",
+      "category": "모니터",
+      "text": "고해상도 뷰피니티 S6(S60UD) 블랙 (80.1 cm) LS32D604UAKXKR 231,000원 구매하기 2560x1440 해상도의 부드러운 영상 화질 QHD 해상도 간편한 데이터 전송 및 충전 USB-C 타입 빠르고 쉬운 모니터 세팅 손쉬운 스탠드 설치",
+      "link": "https://www.familynet.kr/monitor/LS32D604UAKXKR/LS32D604UAKXKR/",
+      "image": "https://images.samsung.com/kdp/goods/2025/02/04/277e997f-539e-4e5d-8362-37f839b115e4.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
+    },
+    {
+      "keyword": "모니터",
+      "category": "모니터",
+      "text": "고해상도 뷰피니티 S6(S65TC) (86.4 cm) LS34C650TAKXKR 415,000원 구매하기 놀라운 몰입감의 1000 R 곡률 울트라 WQHD 사실감 넘치는 최대 10억 개의 색상 HDR 10 주변기기 연결을 모니터 하나로 Thunderbolt™ 4 & 다양한 포트",
+      "link": "https://www.familynet.kr/monitor/LS34C650TAKXKR/LS34C650TAKXKR/",
+      "image": "https://images.samsung.com/kdp/goods/2025/02/04/9f8fb473-7531-4546-bef2-f5952f505560.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
+    },
+    {
+      "keyword": "모니터",
+      "category": "모니터",
+      "text": "오디세이 OLED G6(G60SD) (67.8 cm) LS27DG602SKXKR 639,000원 구매하기 생생한 컬러와 선명한 화질 OLED 화질 번인(burn-in) 방지 시스템 삼성 OLED 세이프가드+ 부드럽고 끊김 걱정 없는 게임 경험 360 Hz 주사율",
+      "link": "https://www.familynet.kr/monitor/LS27DG602SKXKR/LS27DG602SKXKR/",
+      "image": "https://images.samsung.com/kdp/goods/2024/09/12/131be28d-03ab-4bcb-8e19-a7532639bb4a.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
+    },
+    {
+      "keyword": "모니터",
+      "category": "모니터",
+      "text": "설치상품 2024 스마트모니터 M5 M50D 화이트 (80.1 cm) LS32DM503EKXKR 304,000원 구매하기 좋아하는 OTT 콘텐츠를 바로 플레이 스마트 TV 앱 한곳에서 즐기는 최고 수준의 라인업 게이밍 허브 편리한 연결 다양한 활용 다중 포트 지원",
+      "link": "https://www.familynet.kr/monitor/LS32DM503EKXKR/LS32DM503EKXKR/",
+      "image": "https://images.samsung.com/kdp/goods/2024/07/16/63ca970f-51df-45ef-90a1-37efc762c2d9.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
+    },
+    {
+      "keyword": "에어컨",
+      "category": "에어컨",
+      "text": "Bespoke 무풍에어컨 윈도우핏 19.2㎡ (매립형) AW06C7155TWAS 491,700원 구매하기 냉방면적(19.2 ㎡), 실내외기 일체형, 강력 회전 냉방 바디 색상(화이트), 패널(베이지)",
+      "link": "https://www.familynet.kr/air-conditioner/package-aw06c7155twas-d2c/AW06C7155TWAS/",
+      "image": "https://images.samsung.com/kdp/goods/2023/04/18/c051ecb8-0abb-4555-a48b-fbdb1e739dde.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
+    },
+    {
+      "keyword": "에어컨",
+      "category": "에어컨",
+      "text": "Bespoke 무풍에어컨 윈도우핏 19.2㎡ (매립형) AW06C7155EWAS 491,700원 구매하기 냉방면적(19.2 ㎡), 실내외기 일체형, 강력 회전 냉방 바디 색상(화이트), 패널(그린)",
+      "link": "https://www.familynet.kr/air-conditioner/package-aw06c7155ewas-d2c/AW06C7155EWAS/",
+      "image": "https://images.samsung.com/kdp/goods/2023/04/18/2a7e65a1-59e2-47a9-9295-f71253df4b7a.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
+    },
+    {
+      "keyword": "에어컨",
+      "category": "에어컨",
+      "text": "Bespoke 무풍에어컨 윈도우핏 19.2㎡ (매립형) AW06C7155WWAS 491,700원 구매하기 냉방면적(19.2 ㎡), 실내외기 일체형, 강력 회전 냉방 바디 색상(화이트), 패널(화이트)",
+      "link": "https://www.familynet.kr/air-conditioner/package-aw06c7155wwas-d2c/AW06C7155WWAS/",
+      "image": "https://images.samsung.com/kdp/goods/2023/04/18/ec81831c-8faa-4914-a8d7-57482e4a16a8.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
+    },
+    {
+      "keyword": "에어컨",
+      "category": "에어컨",
+      "text": "Bespoke 무풍에어컨 윈도우핏 19.2㎡ (매립형) AW06C7155GWAS 491,700원 구매하기 냉방면적(19.2 ㎡), 실내외기 일체형, 강력 회전 냉방 바디 색상(화이트), 패널(그레이)",
+      "link": "https://www.familynet.kr/air-conditioner/package-aw06c7155gwas-d2c/AW06C7155GWAS/",
+      "image": "https://images.samsung.com/kdp/goods/2023/04/17/35541aba-4a04-401c-bc99-8b11846a7706.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-17",
+      "is_new": false
     }
   ]
 }
