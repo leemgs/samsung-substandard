@@ -56,3 +56,36 @@ footer a{color:var(--accent)}
   .board .pwrap{min-width:0}
   .board .cat{white-space:normal}
 }
+
+/* ---- 이용 가이드 */
+.guide-link{margin:12px 0 0}
+.guide-link a{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:baseline;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--fg);font-weight:600;text-decoration:none}
+.guide-link a:hover{border-color:var(--accent);color:var(--accent)}
+.guide-link small{font-weight:400;color:var(--mut)}
+.back{margin:0 0 8px;font-size:14px}.back a,.guide a{color:var(--accent)}
+.toc{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-top:16px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--card);font-size:14px}
+.toc strong{margin-right:4px}
+.guide section h2{padding-bottom:8px;border-bottom:2px solid var(--fg)}
+.guide section p{margin:8px 0}
+.guide section[id]{scroll-margin-top:12px}
+.guide .note{color:var(--mut);font-size:14px}
+.sub-note{color:var(--mut);font-size:13px}
+.blind{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.grid{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+.grid th,.grid td{padding:10px 12px;border:1px solid var(--line);vertical-align:top;text-align:left}
+.grid thead th{background:var(--bg);text-align:center}
+.grid tbody th{background:var(--bg);white-space:nowrap;font-weight:600}
+.grid ul{margin:0;padding-left:18px;list-style:disc}
+.grid li{display:list-item;border:0;padding:2px 0;justify-content:flex-start}
+.grid .pct{display:block;text-align:center;font-weight:700;color:var(--accent)}
+.guide details{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:8px}
+.guide summary{cursor:pointer;font-weight:600}
+@media (max-width:640px){
+  .grid thead{display:none}
+  .grid,.grid tbody,.grid tr,.grid th,.grid td{display:block;width:100%}
+  .grid tr{margin-top:10px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .grid th,.grid td{border:0;border-bottom:1px solid var(--line);white-space:normal}
+  .grid tr>*:last-child{border-bottom:0}
+  .grid td[data-label]::before,.grid th[data-label]::before{content:attr(data-label);display:block;margin-bottom:2px;font-size:12px;font-weight:600;color:var(--mut)}
+  .grid tbody th[scope=row]:not([data-label])::before{content:none}
+}
