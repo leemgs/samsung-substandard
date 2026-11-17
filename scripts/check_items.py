@@ -266,6 +266,45 @@ def wait_list_ready(page, selector, empty_text, timeout):
     return "timeout"
 
 
+SCRAPE_WARNINGS = []
+
+
+def load_all(page, selector, more_selector, max_clicks=20):
+    """'더보기' 류 버튼이 보이는 동안 눌러서 목록을 끝까지 불러온다. 눌린 횟수 반환."""
+    from playwright.sync_api import Error as PlaywrightError
+
+    clicks = 0
+    for _ in range(max_clicks):
+        try:
+            btn = page.locator(more_selector).first
+            if btn.count() == 0 or not btn.is_visible():
+                break
+            before = page.locator(selector).count()
+            btn.click(timeout=10000)
+            clicks += 1
+            for _ in range(20):  # 항목이 늘어날 때까지 최대 약 10초 대기
+                page.wait_for_timeout(500)
+                if page.locator(selector).count() > before:
+                    break
+            else:
+                break  # 눌러도 늘지 않으면 중단(무한 반복 방지)
+        except PlaywrightError:
+            break
+    return clicks
+
+
+def site_total(page):
+    """페이지에 표시된 '검색 결과 N개' 의 총 개수 (없으면 None)."""
+    from playwright.sync_api import Error as PlaywrightError
+
+    try:
+        body = page.inner_text("body", timeout=5000)
+    except PlaywrightError:
+        return None
+    nums = [int(n.replace(",", "")) for n in re.findall(r"검색\s*결과\s*([\d,]+)\s*개", body)]
+    return max(nums) if nums else None
+
+
 def scrape_items(page, cfg):
     base = os.environ.get("FAMILYNET_URL") or cfg["base_url"]
     timeout = cfg.get("timeout_ms", 30000)
@@ -280,12 +319,21 @@ def scrape_items(page, cfg):
             page.goto(urljoin(base, url), timeout=timeout, wait_until="domcontentloaded")
         for n in range(cfg.get("max_pages", 1)):
             state = wait_list_ready(page, selector, empty_text, timeout)
+            more = cfg.get("load_more_selector")
+            clicks = load_all(page, selector, more, cfg.get("max_more", 20)) if more and state == "items" else 0
             found = page.evaluate(EXTRACT_JS, selector) if state != "empty" else []
             category = category or category_from_title(page)
             for f in found:
                 f["category"] = category
+            total = site_total(page)
             print(f"  [{category or '-'}] {page.url} (p{n + 1}) → {len(found)}개"
+                  + (f" (사이트 표시 총 {total}개)" if total is not None else "")
+                  + (f", 더보기 {clicks}회" if clicks else "")
                   + (" (빈 목록)" if state == "empty" else ""))
+            if total is not None and len(found) < total and state != "empty":
+                warn = f"[{category or page.url}] 총 {total}개 중 {len(found)}개만 수집"
+                SCRAPE_WARNINGS.append(warn)
+                print(f"  ⚠️ {warn} — load_more_selector/next_page_selector 설정을 확인하세요.")
             if state == "empty":
                 break
             if not found:
@@ -392,7 +440,8 @@ INSPECT_JS = """
   const vis = e => !!(e.offsetWidth || e.offsetHeight || e.getClientRects().length);
   const clip = (t, n) => (t || '').replace(/\\s+/g, ' ').trim().slice(0, n);
   const pag = Array.from(document.querySelectorAll(
-    '[class*="pagin" i], [class*="paging" i], [id*="pagin" i], [id*="paging" i], nav[aria-label*="page" i]'));
+    '[class*="pagin" i], [class*="paging" i], [id*="pagin" i], [id*="paging" i], nav[aria-label*="page" i]'))
+    .filter(e => !String(e.className).includes('swiper') && !e.closest('[class*="swiper"]'));
   const more = Array.from(document.querySelectorAll('button, a')).filter(e =>
     /더\\s*보기|load\\s*more|show\\s*more|다음|next/i.test((e.innerText || '') + ' ' + (e.getAttribute('aria-label') || '')) && vis(e));
   const total = Array.from(document.querySelectorAll('*')).filter(e =>
@@ -499,6 +548,8 @@ def main():
                 new.append(rec)
 
     status = f"정상 (수집 {len(items)}건, 일치 {len(found)}건, 신규 {len(new)}건)"
+    if SCRAPE_WARNINGS:
+        status = status.replace("정상", "주의", 1) + " ⚠️ " + "; ".join(SCRAPE_WARNINGS)
     print(status)
     if args.dry_run:
         print(json.dumps(new, ensure_ascii=False, indent=2))
