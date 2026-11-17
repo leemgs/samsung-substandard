@@ -12,6 +12,8 @@ docs/ (GitHub Pages 웹앱: 키워드 관리·결과 확인)
 
 > **정기 등록 시간**: 등외급 제품은 **매주 화요일 오전 00:00 ~ 12:00**에 등록됩니다. 이 시간 동안에는 사이트가 **로그인 자체를 차단**(사이트 안내: "현재 등외급 상품 등재 기간입니다")하므로, 등재가 끝난 뒤인 오후 1시(KST)에 확인합니다. 화요일 12:00 이전에 수동 실행하면 로그인 차단 메시지와 함께 실패합니다.
 
+> **웹앱 메뉴** (`docs/`, GitHub Pages): 홈(대시보드) `index.html` · 관심 키워드 `keywords.html` · 확인 결과 `results.html` · 설정 `settings.html` · 운영 안내 `schedule.html` · 이용 가이드 `guide.html`. 공통 코드는 `docs/js/common.js`.
+>
 > **이용 가이드**: 등급(A/B/C)·구매 대상·수량 제한·문의처는 웹앱의 [`docs/guide.html`](docs/guide.html) (메인 화면의 "📖 등외급몰 이용 가이드" 링크)에서 볼 수 있습니다.
 
 ## 설정
@@ -24,7 +26,7 @@ docs/ (GitHub Pages 웹앱: 키워드 관리·결과 확인)
 2. `config/email.json`에서 발신/수신 주소 수정.
 3. **사이트 주소 확인**: 요청서의 `familynetk.r`은 오타로 보여 `https://www.familynet.kr`로 가정했습니다. 다르면 `FAMILYNET_URL` 또는 `config/site.json`을 수정하세요.
 4. **Pages 켜기**: Settings → Pages → Branch `main`, 폴더 `/docs`.
-5. 웹앱에서 키워드 등록 → 저장(토큰 입력 시 저장소에 직접 커밋, 아니면 JSON 다운로드).
+5. 웹앱에서 **설정**에 저장소·토큰 등록 → **관심 키워드**에서 등록·저장(토큰 없이는 JSON 다운로드).
 
 ## 사이트 구조에 맞추기 (`config/site.json`)
 사이트에 접속할 수 없는 환경에서 만들었기 때문에 로그인/목록 구조는 **자동 감지**(비밀번호 입력칸, 제출 버튼, `tr/li/article/.item…` 목록)로 시작합니다.

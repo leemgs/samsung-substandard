@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>등외급몰 이용 가이드</title>
+<title>이용 가이드 · 등외급몰 알리미</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main class="guide">
-  <p class="back"><a href="./">← 등외급몰 알리미로 돌아가기</a></p>
-  <h1>📖 등외급몰 이용 가이드</h1>
+<header id="site-header"></header>
+<main id="main" class="guide doc">
+  <h1>📖 이용 가이드</h1>
   <p class="sub">등외품 사내판매 제도, 구매 대상과 수량 제한, 문의처를 한곳에 정리했습니다.</p>
 
   <nav class="toc" aria-label="목차">
@@ -144,10 +144,11 @@
     </div>
   </section>
 
-  <footer>
-    <a href="./">← 등외급몰 알리미</a> ·
-    <a href="https://github.com/leemgs/samsung-substandard" target="_blank" rel="noopener">GitHub: https://github.com/leemgs/samsung-substandard</a>
-  </footer>
 </main>
+<footer id="site-footer"></footer>
+<script type="module">
+  import { initLayout } from "./js/common.js";
+  initLayout("guide");
+</script>
 </body>
 </html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>확인 결과 · 등외급몰 알리미</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="site-header"></header>
+<main id="main">
+  <h1>📋 확인 결과</h1>
+  <p id="status" class="sub">불러오는 중…</p>
+
+  <section>
+    <div class="filters">
+      <label>검색
+        <input id="q" type="search" placeholder="제품명·모델명·카테고리 (공백=모두 포함)" autocomplete="off">
+      </label>
+      <label>카테고리
+        <select id="category" style="width:100%"><option value="">전체</option></select>
+      </label>
+      <label>정렬
+        <select id="sort" style="width:100%">
+          <option value="default">기본(수집 순)</option>
+          <option value="price-asc">가격 낮은순</option>
+          <option value="price-desc">가격 높은순</option>
+        </select>
+      </label>
+      <div class="full checks">
+        <label><input id="new-only" type="checkbox"> NEW만 보기</label>
+        <button id="clear" type="button" class="ghost" hidden>필터 초기화</button>
+      </div>
+    </div>
+
+    <div class="board-bar">
+      <span id="total" aria-live="polite">총 0건</span>
+      <label class="size" style="margin:0">페이지당
+        <select id="page-size" aria-label="페이지당 표시 개수">
+          <option>10</option><option selected>20</option><option>30</option>
+          <option>50</option><option>70</option><option>100</option>
+        </select>개
+      </label>
+    </div>
+    <div class="table-wrap">
+      <table class="board">
+        <thead><tr>
+          <th class="num">번호</th><th class="cat">카테고리</th><th>상품</th>
+          <th class="price">가격</th><th class="date">최초 확인</th>
+        </tr></thead>
+        <tbody id="matches"></tbody>
+      </table>
+    </div>
+    <nav id="pager" class="pager" aria-label="페이지 이동"></nav>
+  </section>
+</main>
+<footer id="site-footer"></footer>
+<script type="module" src="js/results.js"></script>
+</body>
+</html>

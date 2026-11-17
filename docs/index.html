@@ -4,74 +4,48 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>등외급몰 알리미</title>
+<meta name="description" content="삼성전자 등외급몰의 관심 물품이 올라오면 이메일로 알려드립니다.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main>
-  <h1>🛒 등외급몰 알리미</h1>
-  <p class="sub">매일 오후 1시 17분(KST)(화요일은 12:10~18:40, 30분 간격 추가) GitHub Actions가 로그인해 관심 물품을 확인하고, 새로 올라오면 Gmail로 알려드립니다.</p>
+<header id="site-header"></header>
+<main id="main">
+  <h1>🏠 홈</h1>
+  <p class="sub">관심 키워드와 일치하는 등외급 물품이 올라오면 Gmail로 알려드립니다. 현재 상태를 한눈에 확인하세요.</p>
 
-  <p class="guide-link"><a href="guide.html">📖 등외급몰 이용 가이드 <small>등급 · 구매 대상 · 수량 제한 · 문의처</small></a></p>
+  <div id="banners"></div>
+
+  <div class="stats" id="stats" aria-live="polite">
+    <div class="stat"><div class="label">불러오는 중…</div></div>
+  </div>
 
   <aside class="notice" role="note">
     <strong>📅 등외급 제품 정기 등록 시간</strong>
     <span>매주 <b>화요일 오전 00:00 ~ 12:00</b></span>
-    <small>등재 시간에는 등외급몰이 로그인을 막기 때문에 확인은 매일 오후 1시 17분(KST)에 실행되고, 화요일에는 12:10~18:40에 30분마다 추가로 확인합니다.</small>
+    <small>등재 시간에는 등외급몰이 로그인을 막기 때문에, 알리미는 등재가 끝난 뒤부터 확인합니다. <a href="schedule.html">확인 스케줄 보기</a></small>
   </aside>
 
   <section>
-    <h2>① 관심 물품 키워드</h2>
-    <form id="add-form">
-      <input id="kw" placeholder="예: 갤럭시 S24, 냉장고 (공백=모두 포함)" autocomplete="off">
-      <button>추가</button>
-    </form>
-    <ul id="kw-list"></ul>
-    <label>수신 이메일 (비우면 config/email.json 값 사용)
-      <input id="notify" type="email" autocomplete="off" placeholder="you@gmail.com">
-    </label>
+    <div class="link-row"><h2>카테고리별 현재 물품</h2><a href="results.html">전체 결과 보기 →</a></div>
+    <div class="chips" id="categories"><span class="hint">불러오는 중…</span></div>
   </section>
 
   <section>
-    <h2>② 저장</h2>
-    <p class="hint">GitHub fine-grained 토큰(이 저장소의 <b>Contents: Read and write</b>)을 입력하면 저장소에 바로 반영됩니다. 토큰은 이 브라우저(localStorage)에만 저장되며, 공용 기기에서는 사용 후 <b>토큰 삭제</b>를 누르세요.</p>
-    <label>저장소 <input id="repo" placeholder="owner/repo" autocomplete="off"></label>
-    <label>토큰 <input id="token" type="password" placeholder="github_pat_..." autocomplete="off"></label>
-    <div class="row">
-      <button id="save">저장소에 저장</button>
-      <button id="download" class="ghost">keywords.json 다운로드</button>
-      <button id="forget" class="ghost">토큰 삭제</button>
-    </div>
-    <p id="msg" role="status"></p>
+    <div class="link-row"><h2>🆕 새로 올라온 물품</h2><a href="results.html?new=1">NEW만 보기 →</a></div>
+    <div id="new-items"><span class="hint">불러오는 중…</span></div>
   </section>
 
   <section>
-    <h2>③ 최근 확인 결과</h2>
-    <p id="status" class="hint">불러오는 중…</p>
-    <div class="board-bar">
-      <span id="total" aria-live="polite">총 0건</span>
-      <label class="size">페이지당
-        <select id="page-size" aria-label="페이지당 표시 개수">
-          <option>10</option><option selected>20</option><option>30</option>
-          <option>50</option><option>70</option><option>100</option>
-        </select>개
-      </label>
+    <h2>바로가기</h2>
+    <div class="cards">
+      <a href="keywords.html"><b>🏷️ 관심 키워드 관리</b><span>알림받을 키워드를 추가·삭제하고 저장합니다.</span></a>
+      <a href="results.html"><b>📋 확인 결과</b><span>검색·카테고리·가격순으로 현재 물품을 살펴봅니다.</span></a>
+      <a href="guide.html"><b>📖 이용 가이드</b><span>등급·구매 대상·수량 제한·문의처를 확인합니다.</span></a>
+      <a href="schedule.html"><b>🗓️ 운영 안내</b><span>자동 확인 시각과 문제 해결 방법을 봅니다.</span></a>
     </div>
-    <div class="table-wrap">
-      <table class="board">
-        <thead><tr>
-          <th class="num">번호</th><th class="cat">카테고리</th><th>상품</th>
-          <th class="price">가격</th><th class="date">최초 확인</th>
-        </tr></thead>
-        <tbody id="matches"></tbody>
-      </table>
-    </div>
-    <nav id="pager" class="pager" aria-label="페이지 이동"></nav>
   </section>
-  <footer>
-    <a href="guide.html">📖 이용 가이드</a> ·
-    <a href="https://github.com/leemgs/samsung-substandard" target="_blank" rel="noopener">GitHub: https://github.com/leemgs/samsung-substandard</a>
-  </footer>
 </main>
-<script src="app.js"></script>
+<footer id="site-footer"></footer>
+<script type="module" src="js/home.js"></script>
 </body>
 </html>

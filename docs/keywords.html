@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>관심 키워드 · 등외급몰 알리미</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="site-header"></header>
+<main id="main" class="doc">
+  <div class="page-head">
+    <div>
+      <h1>🏷️ 관심 키워드</h1>
+      <p class="sub">등록한 키워드와 일치하는 새 물품이 올라오면 메일로 알려드립니다.</p>
+    </div>
+    <span id="dirty" class="tag" hidden style="background:#b54708">● 저장되지 않은 변경</span>
+  </div>
+
+  <div id="need-token" class="banner warn" hidden>
+    <strong>저장 설정이 필요합니다.</strong> 키워드를 GitHub에 저장하려면 <a href="settings.html">설정</a>에서 저장소와 토큰을 먼저 등록하세요.
+    (지금은 <b>keywords.json 다운로드</b>만 사용할 수 있습니다.)
+  </div>
+
+  <section>
+    <h2>키워드 추가</h2>
+    <form id="add-form" class="inline">
+      <input id="kw" placeholder="예: 에어컨, 갤럭시 북 (공백으로 나누면 모두 포함)" autocomplete="off" aria-label="추가할 키워드">
+      <button>추가</button>
+    </form>
+    <p id="add-msg" class="msg" role="status"></p>
+    <div id="suggest-wrap" hidden>
+      <small>카테고리로 빠르게 추가:</small>
+      <div class="chips" id="suggest"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="page-head"><h2>등록된 키워드 <span id="count" class="tag"></span></h2><small id="source"></small></div>
+    <div class="chips" id="kw-list" aria-live="polite"></div>
+
+    <label>수신 이메일 <small>(비우면 <code>config/email.json</code> 의 주소 사용)</small>
+      <input id="notify" type="email" placeholder="you@gmail.com" autocomplete="off">
+    </label>
+
+    <div class="row">
+      <button id="save">저장하기</button>
+      <button id="reset" class="ghost" disabled>변경 취소</button>
+      <button id="download" class="ghost">keywords.json 다운로드</button>
+    </div>
+    <p id="msg" class="msg" role="status"></p>
+  </section>
+
+  <section>
+    <h2>키워드 매칭 규칙</h2>
+    <ul class="plain" style="margin:0;padding-left:20px">
+      <li>공백으로 나눈 단어가 <b>모두</b> 포함되어야 일치합니다. (예: <code>삼성 모니터</code>)</li>
+      <li>대소문자는 구분하지 않으며, 물품명뿐 아니라 <b>카테고리명</b>(예: 에어컨, 세탁건조기)도 함께 검사합니다.</li>
+      <li>저장 후 <b>다음 자동 확인</b>부터 적용됩니다. <a href="schedule.html">확인 스케줄 보기</a></li>
+    </ul>
+  </section>
+</main>
+<footer id="site-footer"></footer>
+<script type="module" src="js/keywords.js"></script>
+</body>
+</html>
