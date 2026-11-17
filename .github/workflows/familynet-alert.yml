@@ -2,7 +2,7 @@ name: Familynet Alert
 
 on:
   schedule:
-    - cron: "0 4 * * *"   # 매일 04:00 UTC = 13:00 KST (정기 등록: 화요일 00:00~12:00 이후)
+    - cron: "17 4 * * *"  # 매일 04:17 UTC = 13:17 KST (등재 시간 00:00~12:00 이후, 정각은 지연/누락이 잦아 피함)
   workflow_dispatch:
     inputs:
       test_email:
@@ -17,6 +17,10 @@ on:
         description: "현재 일치 물품을 기준선으로만 저장 (메일 미발송)"
         type: boolean
         default: false
+      baseline_categories:
+        description: "baseline 과 함께: 기준선 처리할 카테고리(쉼표 구분, 예: 모니터,에어컨). 비우면 전체"
+        type: string
+        default: ""
       preview_mail:
         description: "현재 일치 물품 최대 3건을 미리보기 메일로 발송 (상태 저장 안 함)"
         type: boolean
@@ -55,6 +59,7 @@ jobs:
           FAMILYNET_PW: ${{ secrets.FAMILYNET_PW }}
           FAMILYNET_URL: ${{ secrets.FAMILYNET_URL || vars.FAMILYNET_URL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          BASELINE_CATEGORIES: ${{ inputs.baseline_categories }}
         run: |
           ARGS=""
           [ "${{ inputs.test_email }}" = "true" ] && ARGS="$ARGS --test-email"

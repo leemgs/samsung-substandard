@@ -1,11 +1,11 @@
 # 🛒 등외급몰 알리미 (samsung-substandard)
 
-삼성전자 등외급 사내판매 사이트에 **매일 오후 1시(KST)** GitHub Actions가 로그인하여,
+삼성전자 등외급 사내판매 사이트에 **매일 오후 1시 17분(KST)** GitHub Actions가 로그인하여,
 등록한 키워드와 일치하는 **신규 물품**이 올라오면 **Gmail SMTP**로 메일을 보냅니다.
 
 ```
 docs/ (GitHub Pages 웹앱: 키워드 관리·결과 확인)
-  └─ docs/data/keywords.json ─▶ .github/workflows/familynet-alert.yml (cron 0 4 * * * UTC = 13:00 KST)
+  └─ docs/data/keywords.json ─▶ .github/workflows/familynet-alert.yml (cron 17 4 * * * UTC = 13:17 KST)
                                    └─ scripts/check_items.py (Playwright 로그인 → 수집 → 매칭 → Gmail)
                                         └─ state/seen.json, docs/data/latest.json 자동 커밋
 ```
@@ -35,3 +35,5 @@ docs/ (GitHub Pages 웹앱: 키워드 관리·결과 확인)
 - 로컬: `pip install -r scripts/requirements.txt && playwright install chromium` 후 `python scripts/check_items.py --dry-run`.
 
 > 참고: 사내 사이트가 GitHub 호스티드 러너(외부 IP)에서 접근 불가(사내망/VPN 전용)이면 self-hosted runner가 필요합니다.
+
+> **자동 실행 참고**: GitHub `schedule` 은 정각에 몰려 지연·누락될 수 있어 `:17` 분으로 잡았습니다. 그래도 한 번 건너뛰면 Actions → Familynet Alert → Run workflow 로 수동 실행하세요.

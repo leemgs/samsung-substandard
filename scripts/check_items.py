@@ -500,6 +500,8 @@ def main():
                     help="읽기 전용: 목록 페이지의 페이지 번호/더보기 구조와 총 개수 문구를 출력")
     ap.add_argument("--baseline", action="store_true",
                     help="현재 일치 물품을 '이미 본 것'으로만 기록하고 메일은 보내지 않음")
+    ap.add_argument("--categories", default=os.environ.get("BASELINE_CATEGORIES", ""),
+                    help="--baseline 과 함께 사용: 기준선 처리할 카테고리(쉼표 구분). 비우면 전체")
     ap.add_argument("--preview-mail", action="store_true",
                     help="현재 일치 물품 최대 3건을 미리보기 메일로 발송 (상태 저장 안 함)")
     args = ap.parse_args()
@@ -565,8 +567,13 @@ def main():
         return 0  # 상태(seen/latest)는 저장하지 않는다
 
     if args.baseline:
-        seen.update(r["key"] for r in found)
-        status += f" → 기준선 저장 ({len(found)}건, 메일 미발송)"
+        cats = {c.strip() for c in args.categories.split(",") if c.strip()}
+        targets = [r for r in found if not cats or r["category"] in cats]
+        seen.update(r["key"] for r in targets)
+        left = len([r for r in found if r["key"] not in seen])
+        status += (f" → 기준선 저장 {len(targets)}건"
+                   + (f" ({', '.join(sorted(cats))})" if cats else "")
+                   + f", 신규로 남김 {left}건, 메일 미발송")
         print(status)
     elif new:
         send_mail(f"[등외급몰] 관심 물품 {len(new)}건 올라왔습니다", build_html(new, now))
@@ -575,7 +582,8 @@ def main():
     # 게시판용 부가 정보: 최초 확인일(이전 기록 유지)과 이번 실행에서의 신규 여부
     prev_seen = {m.get("link"): m.get("first_seen") for m in load_json(LATEST, {}).get("matches", [])}
     today = datetime.now(KST).strftime("%Y-%m-%d")
-    new_keys = set() if args.baseline else {r["key"] for r in new}
+    new_keys = ({r["key"] for r in found if r["key"] not in seen} if args.baseline
+                else {r["key"] for r in new})
     for r in found:
         r["first_seen"] = prev_seen.get(r["link"]) or today
         r["is_new"] = r["key"] in new_keys
