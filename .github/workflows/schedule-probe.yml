@@ -1,0 +1,11 @@
+# 임시 진단용: 이 저장소에서 schedule 이벤트가 동작하는지 확인 (확인 후 삭제)
+name: Schedule Probe
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - run: date -u && echo "event=${{ github.event_name }}"
