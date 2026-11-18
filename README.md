@@ -1,11 +1,11 @@
 # 🛒 등외급몰 알리미 (samsung-substandard)
 
-삼성전자 등외급 사내판매 사이트에 **매일 오후 1시 17분(KST)과 화·목 12:10~18:40(30분 간격)** GitHub Actions가 로그인하여,
+삼성전자 등외급 사내판매 사이트에 **매일 오후 1시 17분(KST)과 화·목 12:10~18:10(1시간 간격)** GitHub Actions가 로그인하여,
 등록한 키워드와 일치하는 **신규 물품**이 올라오면 **Gmail SMTP**로 메일을 보냅니다.
 
 ```
 docs/ (GitHub Pages 웹앱: 키워드 관리·결과 확인)
-  └─ docs/data/keywords.json ─▶ .github/workflows/familynet-alert.yml (cron 17 4 * * * = 매일 13:17 KST, 10,40 3-9 * * 2,4 = 화·목 12:10~18:40 KST)
+  └─ docs/data/keywords.json ─▶ .github/workflows/familynet-alert.yml (cron 17 4 * * * = 매일 13:17 KST, 10 3-9 * * 2,4 = 화·목 12:10~18:10 KST)
                                    └─ scripts/check_items.py (Playwright 로그인 → 수집 → 매칭 → Gmail)
                                         └─ state/seen.json, docs/data/latest.json 자동 커밋
 ```
@@ -102,7 +102,7 @@ curl -i -X POST \
 | 작업 | 실행 시각 |
 | --- | --- |
 | **① 매일 확인** | 매일 **13:17** |
-| **② 화·목 집중 확인** | 요일 **화·목**, 시 **12~18**, 분 **10, 40** (= 12:10, 12:40 … 18:10, 18:40) |
+| **② 화·목 집중 확인** | 요일 **화·목**, 시 **12~18**, 분 **10** (= 12:10, 13:10 … 17:10, 18:10) |
 
 > ⛔ **화·목 00:00~12:00 에는 실행하지 마세요.** 등외급몰이 등재 시간(파킹시간)에 로그인을 막아 실행이 실패합니다. 위 스케줄은 모두 12시 이후입니다.
 
@@ -118,7 +118,7 @@ curl -i -X POST \
   ```cron
   TZ=Asia/Seoul
   17 13 * * *       curl -s -o /dev/null -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/json" https://api.github.com/repos/leemgs/samsung-substandard/actions/workflows/familynet-alert.yml/dispatches -d '{"ref":"main"}'
-  10,40 12-18 * * 2,4  curl -s -o /dev/null -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/json" https://api.github.com/repos/leemgs/samsung-substandard/actions/workflows/familynet-alert.yml/dispatches -d '{"ref":"main"}'
+  10 12-18 * * 2,4  curl -s -o /dev/null -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $GITHUB_TOKEN" -H "Content-Type: application/json" https://api.github.com/repos/leemgs/samsung-substandard/actions/workflows/familynet-alert.yml/dispatches -d '{"ref":"main"}'
   ```
 - **토큰 관리**: 만료일을 달력에 적어 두고, 유출이 의심되면 GitHub에서 즉시 폐기(Revoke) 후 새로 발급해 스케줄러의 헤더를 바꾸세요.
 

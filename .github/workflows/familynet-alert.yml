@@ -3,7 +3,7 @@ name: Familynet Alert
 on:
   schedule:
     - cron: "17 4 * * *"  # 매일 04:17 UTC = 13:17 KST (등재 시간 00:00~12:00 이후, 정각은 지연/누락이 잦아 피함)
-    - cron: "10,40 3-9 * * 2,4"  # 화·목 03:10~09:40 UTC = 12:10~18:40 KST, 30분 간격 (등재 직후 빠른 품절 대비)
+    - cron: "10 3-9 * * 2,4"  # 화·목 03:10~09:10 UTC = 12:10~18:10 KST, 1시간 간격 (등재 직후 빠른 품절 대비)
   workflow_dispatch:
     inputs:
       test_email:
