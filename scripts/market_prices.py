@@ -134,7 +134,7 @@ def main():
     ap.add_argument("--out", default=str(ROOT / "docs" / "data" / "market_prices.json"))
     ap.add_argument("--ttl-hours", type=float, default=24)
     ap.add_argument("--max-calls", type=int, default=15)
-    ap.add_argument("--delay", type=float, default=7.0, help="API 호출 간 대기(초). 검색 API 는 분당 10회 제한")
+    ap.add_argument("--delay", type=float, default=7.0, help="API 호출 간 대기(초). 호출 제한을 피하기 위한 간격")
     args = ap.parse_args()
 
     latest = json.loads(Path(args.latest).read_text(encoding="utf-8"))
