@@ -86,6 +86,12 @@ jobs:
           git add state/seen.json docs/data/latest.json
           if git diff --cached --quiet; then echo "변경 없음"; else
             git commit -m "chore: update alert state [skip ci]"
-            git pull --rebase origin "${GITHUB_REF_NAME}"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
+            # 같은 순간에 다른 push(웹앱 저장 등)와 겹쳐도 상태가 유실되지 않도록 재시도.
+            # (메일 발송 후 상태 저장이 실패하면 다음 실행에서 같은 메일이 중복 발송됨)
+            ok=0
+            for i in 1 2 3 4 5; do
+              if git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}"; then ok=1; break; fi
+              echo "push 실패($i/5) — 재시도"; git rebase --abort 2>/dev/null || true; sleep $((i * 3))
+            done
+            [ "$ok" = 1 ] || { echo "상태 저장 push 최종 실패"; exit 1; }
           fi
