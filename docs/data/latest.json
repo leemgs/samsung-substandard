@@ -1,16 +1,7 @@
 {
-  "checked_at": "2026-11-17 19:34 KST",
-  "status": "정상 (수집 26건, 일치 26건, 신규 1건)",
+  "checked_at": "2026-11-18 19:29 KST",
+  "status": "정상 (수집 22건, 일치 22건, 신규 0건)",
   "matches": [
-    {
-      "keyword": "세탁건조기",
-      "category": "세탁건조기",
-      "text": "설치상품 다크스틸 Bespoke AI 콤보 25/18kg (177.8mm LCD) WD90F25AHS 2,003,800원 구매하기 세탁물 이동 없이 편리하게 하나로 세탁·건조하는 ONE 솔루션 국내 최대 용량으로 건조까지 빠르게 쾌속 코스 79분 한눈에 보여주고 자연스럽게 대화하는 AI 홈",
-      "link": "https://www.familynet.kr/laundry-combo/WD90F25AHS/WD90F25AHS/",
-      "image": "https://images.samsung.com/kdp/goods/2025/04/15/5700675b-2e15-4287-9ae7-b39bb69d2955.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-17",
-      "is_new": true
-    },
     {
       "keyword": "모니터",
       "category": "모니터",
@@ -68,27 +59,9 @@
     {
       "keyword": "모니터",
       "category": "모니터",
-      "text": "QHD 오디세이 G5 (LS27FG500) 180Hz LS27FG500EKXKR 192,000원 구매하기 QHD 해상도 · 고속 IPS 패널 180Hz 주사율 · 1ms 응답속도(GtG) HDR10 · 피봇/높이조절 스탠드",
-      "link": "https://www.familynet.kr/monitor/LS27FG500EKXKR/LS27FG500EKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2026/01/13/98b32e4b-4ca0-431f-a01a-8be8713156c3.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-17",
-      "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
       "text": "오디세이 G7 G70F 4K 180Hz 듀얼모드 (LS27FG700) LS27FG700EKXKR 422,000원 구매하기 4K UHD 해상도 · 고속 IPS 패널 4K 180Hz & FHD 360Hz 듀얼모드 · 1ms 응답속도(GtG) G-Sync 호환 · 피봇 · 높이조절 스탠드",
       "link": "https://www.familynet.kr/monitor/LS27FG700EKXKR/LS27FG700EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2026/01/13/a278e41f-b275-43d1-88cd-f5b51ea56d2b.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-17",
-      "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
-      "text": "2025 4K 스마트모니터 M7 블랙 (LS43FM702) LS43FM702UKXKR 375,000원 구매하기 좋아하는 OTT 콘텐츠를 바로 플레이, 스마트 TV 앱 클릭 투 써치, AVA 기능 삼성 Knox 보안, 멀티 컨트롤, AirPlay 지원",
-      "link": "https://www.familynet.kr/monitor/LS43FM702UKXKR/LS43FM702UKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/10/21/965d96f4-855d-4479-9117-8a23c6ed9b00.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-17",
       "is_new": false
     },
@@ -107,15 +80,6 @@
       "text": "2025 4K 스마트모니터 M1 화이트 (LS43FM1E3) LS43FM1E3UKXKR 386,000원 구매하기 좋아하는 OTT 콘텐츠를 바로 플레이, 스마트 TV 앱 클릭 투 써치, AVA 기능 삼성 Knox 보안, 멀티 컨트롤, AirPlay 지원",
       "link": "https://www.familynet.kr/monitor/LS43FM1E3UKXKR/LS43FM1E3UKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/09/18/394fad19-33bb-4ad3-8be4-69943043d5f9.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-17",
-      "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
-      "text": "2025 4K 스마트모니터 M7 화이트 (LS32FM703) LS32FM703UKXKR 306,000원 구매하기 좋아하는 OTT 콘텐츠를 바로 플레이, 스마트 TV 앱 클릭 투 써치, AVA 기능 삼성 Knox 보안, 멀티 컨트롤, AirPlay 지원",
-      "link": "https://www.familynet.kr/monitor/LS32FM703UKXKR/LS32FM703UKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/08/26/2f65c662-f057-4084-ab80-eb83a41bbbde.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-17",
       "is_new": false
     },
