@@ -67,6 +67,11 @@
       <p>GitHub 예약 실행이 지연되거나 건너뛰었을 수 있습니다. 아래 방법으로 직접 실행하면 즉시 확인합니다.</p>
     </details>
     <details>
+      <summary>자동 확인이 계속 안 돌아요 (GitHub 예약 실행이 시작되지 않을 때)</summary>
+      <p>GitHub 예약 실행(<code>schedule</code>)은 지연되거나 건너뛸 수 있고, 새 저장소에서는 아예 시작되지 않는 경우도 있습니다. 이때는 <b>외부 스케줄러</b>(예: cron-job.org)가 정해진 시각에 GitHub API로 실행을 요청하도록 설정하면 안정적입니다.
+      설정 방법은 저장소 README의 <a href="https://github.com/leemgs/samsung-substandard#외부-스케줄러로-안정적으로-실행하기-권장" target="_blank" rel="noopener">“외부 스케줄러로 안정적으로 실행하기”</a>를 참고하세요.</p>
+    </details>
+    <details>
       <summary>수동으로 실행하려면?</summary>
       <ol>
         <li><a href="https://github.com/leemgs/samsung-substandard/actions/workflows/familynet-alert.yml" target="_blank" rel="noopener">Actions → Familynet Alert</a> 를 엽니다.</li>
