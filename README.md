@@ -1,16 +1,16 @@
 # 🛒 등외급몰 알리미 (samsung-substandard)
 
-삼성전자 등외급 사내판매 사이트에 **매일 오후 1시 17분(KST)과 화요일 12:10~18:40(30분 간격)** GitHub Actions가 로그인하여,
+삼성전자 등외급 사내판매 사이트에 **매일 오후 1시 17분(KST)과 화·목 12:10~18:40(30분 간격)** GitHub Actions가 로그인하여,
 등록한 키워드와 일치하는 **신규 물품**이 올라오면 **Gmail SMTP**로 메일을 보냅니다.
 
 ```
 docs/ (GitHub Pages 웹앱: 키워드 관리·결과 확인)
-  └─ docs/data/keywords.json ─▶ .github/workflows/familynet-alert.yml (cron 17 4 * * * = 매일 13:17 KST, 10,40 3-9 * * 2 = 화요일 12:10~18:40 KST)
+  └─ docs/data/keywords.json ─▶ .github/workflows/familynet-alert.yml (cron 17 4 * * * = 매일 13:17 KST, 10,40 3-9 * * 2,4 = 화·목 12:10~18:40 KST)
                                    └─ scripts/check_items.py (Playwright 로그인 → 수집 → 매칭 → Gmail)
                                         └─ state/seen.json, docs/data/latest.json 자동 커밋
 ```
 
-> **정기 등록 시간**: 등외급 제품은 **매주 화요일 오전 00:00 ~ 12:00**에 등록됩니다. 이 시간 동안에는 사이트가 **로그인 자체를 차단**(사이트 안내: "현재 등외급 상품 등재 기간입니다")하므로, 등재가 끝난 뒤인 오후 1시(KST)에 확인합니다. 화요일 12:00 이전에 수동 실행하면 로그인 차단 메시지와 함께 실패합니다.
+> **정기 등록 시간**: 등외급 제품은 **매주 화·목 00:00 ~ 12:00**(파킹시간)에 등록됩니다. 이 시간 동안에는 사이트가 **로그인 자체를 차단**(사이트 안내: "현재 등외급 상품 등재 기간입니다")하므로, 등재가 끝난 뒤인 오후 1시(KST)에 확인합니다. 화·목 12:00 이전에 수동 실행하면 로그인 차단 메시지와 함께 실패합니다.
 
 > **웹앱 메뉴** (`docs/`, GitHub Pages): 홈(대시보드) `index.html` · 관심 키워드 `keywords.html` · 확인 결과 `results.html` · 설정 `settings.html` · 운영 안내 `schedule.html` · 이용 가이드 `guide.html`. 공통 코드는 `docs/js/common.js`.
 >

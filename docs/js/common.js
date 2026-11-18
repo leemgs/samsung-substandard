@@ -48,7 +48,7 @@ export const fmtKst = (d) => new Intl.DateTimeFormat("ko-KR", {
   timeZone: "Asia/Seoul", month: "long", day: "numeric", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false,
 }).format(d);
 
-// 자동 실행 스케줄(워크플로의 cron 과 동일): 매일 13:17 KST, 화요일 12:10~18:40 KST 30분 간격
+// 자동 실행 스케줄(워크플로의 cron 과 동일): 매일 13:17 KST, 화·목 12:10~18:40 KST 30분 간격
 export function nextRuns(now = new Date(), count = 3) {
   const out = new Set();
   const base = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
@@ -56,7 +56,7 @@ export function nextRuns(now = new Date(), count = 3) {
     const day = new Date(base + d * 864e5);
     const [y, mo, dd] = [day.getUTCFullYear(), day.getUTCMonth(), day.getUTCDate()];
     out.add(Date.UTC(y, mo, dd, 4, 17));                                   // 04:17 UTC = 13:17 KST
-    if (day.getUTCDay() === 2) for (let h = 3; h <= 9; h++) for (const m of [10, 40]) out.add(Date.UTC(y, mo, dd, h, m));
+    if (day.getUTCDay() === 2 || day.getUTCDay() === 4) for (let h = 3; h <= 9; h++) for (const m of [10, 40]) out.add(Date.UTC(y, mo, dd, h, m));
   }
   return [...out].filter((t) => t > now.getTime()).sort((a, b) => a - b).slice(0, count).map((t) => new Date(t));
 }

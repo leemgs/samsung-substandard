@@ -150,3 +150,7 @@ code{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding
   .grid tr>*:last-child{border-bottom:0}
   .grid td[data-label]::before,.grid th[data-label]::before{content:attr(data-label);display:block;margin-bottom:2px;font-size:12px;font-weight:600;color:var(--mut)}
 }
+
+.reply{margin:10px 0;padding:12px 16px;border-left:4px solid var(--accent);background:var(--soft);border-radius:0 10px 10px 0;font-weight:600}
+.reply-full{margin-top:8px;color:var(--mut);font-size:14px}
+.reply-full p{margin:0 0 10px}

@@ -100,7 +100,7 @@ REG_BLOCK_RE = re.compile(r"등재\s*(기간|시간)")
 
 def registration_block_error(alert):
     return RuntimeError(
-        "등외급몰이 상품 등재 시간(화요일 00:00~12:00 KST)에는 로그인을 막고 있습니다. "
+        "등외급몰이 상품 등재 시간(화·목 00:00~12:00 KST)에는 로그인을 막고 있습니다. "
         f"사이트 안내: {alert} → 등재 시간이 끝난 뒤(12:00 이후) 다시 실행하세요.")
 
 
