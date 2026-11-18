@@ -139,7 +139,7 @@ code{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding
   .board tr{border-bottom:1px solid var(--line);padding:8px 0}
   .board td{border:0;padding:3px 0}
   .board .num{width:auto;text-align:left}
-  .board .num::before,.board .cat::before,.board .price::before,.board .date::before{content:attr(data-label) " · ";color:var(--mut)}
+  .board .num::before,.board .cat::before,.board .price::before,.board .mprice::before,.board .date::before{content:attr(data-label) " · ";color:var(--mut)}
   .board .cat{white-space:normal}
   .pwrap{min-width:0}
   .mini .meta{white-space:normal}
@@ -156,3 +156,12 @@ code{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding
 .reply-full p{margin:0 0 10px}
 .fresh-note{margin:-6px 0 8px;font-size:13px;color:var(--mut)}
 .fresh-note.warn{color:var(--warn);font-weight:600}
+
+/* ---- 직원가 / 판매가 컬럼 */
+.board th small{display:block;font-weight:400;font-size:11px;color:var(--mut)}
+.board .mprice{white-space:nowrap}
+.board .mprice small{display:block;color:var(--mut);font-size:12px}
+.board .mprice a{font-weight:600;text-decoration:none}
+.board .mprice a:hover{text-decoration:underline}
+.board .save{color:var(--ok);font-weight:700}
+.muted{color:var(--mut)}

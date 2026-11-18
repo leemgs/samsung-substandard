@@ -56,7 +56,7 @@ function stat(label, value, detail, { href, hot, small } = {}) {
         return `<div class="mini"><span class="thumb">${img ? `<img src="${esc(img)}" alt="" loading="lazy" onerror="this.remove()">` : ""}</span>
           <div><span class="new">NEW</span> ${link ? `<a class="name" href="${esc(link)}" target="_blank" rel="noopener">${esc(it.title)}</a>` : esc(it.title)}
           <br><small>${esc(m.category || "-")}</small></div>
-          <div class="meta"><b>${esc(it.price)}</b></div></div>`;
+          <div class="meta"><small>직원가</small><br><b>${esc(it.price)}</b></div></div>`;
       }).join("") + (newRows.length > 5 ? `<p class="hint" style="margin-top:8px">외 ${newRows.length - 5}건 — <a href="results.html?new=1">모두 보기</a></p>` : "")
     : '<span class="hint">마지막 확인에서 새로 올라온 물품이 없습니다.</span>';
 })();

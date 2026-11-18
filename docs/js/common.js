@@ -165,3 +165,19 @@ export async function checkConnection(repo, token) {
   if (!r.ok) throw await apiError(r);
   return { ok: true, note: "저장소와 keywords.json 에 접근할 수 있습니다. (쓰기 권한은 실제 저장할 때 확인됩니다.)" };
 }
+
+// ---------- 판매가(외부 쇼핑몰) 보조 함수
+// 물품 설명에서 모델명 후보를 뽑는다. scripts/market_prices.py 의 model_codes 와 같은 규칙이어야 한다.
+export function modelCodes(text) {
+  const head = (text || "").split(/[\d,]{4,}\s*원/)[0];
+  const found = head.match(/\b(?=[A-Z0-9]*\d)(?=[A-Z0-9]*[A-Z])[A-Z0-9]{6,}\b/g) || [];
+  return [...new Set(found)].sort((a, b) => b.length - a.length).slice(0, 3);
+}
+export async function loadMarket() {
+  try {
+    const r = await fetch("data/market_prices.json", { cache: "no-store" });
+    return r.ok ? await r.json() : null;
+  } catch { return null; }
+}
+export const won = (n) => `${Number(n).toLocaleString("ko-KR")}원`;
+export const coupangSearchUrl = (q) => `https://www.coupang.com/np/search?q=${encodeURIComponent(q)}`;

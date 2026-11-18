@@ -24,8 +24,9 @@
       <label>정렬
         <select id="sort" style="width:100%">
           <option value="default">기본(수집 순)</option>
-          <option value="price-asc">가격 낮은순</option>
-          <option value="price-desc">가격 높은순</option>
+          <option value="price-asc">직원가 낮은순</option>
+          <option value="price-desc">직원가 높은순</option>
+          <option value="discount-desc">할인율 높은순 (판매가 대비)</option>
         </select>
       </label>
       <div class="full checks">
@@ -47,11 +48,14 @@
       <table class="board">
         <thead><tr>
           <th class="num">번호</th><th class="cat">카테고리</th><th>상품</th>
-          <th class="price">가격</th><th class="date">최초 확인</th>
+          <th class="price">직원가<small>등외급몰 혜택가</small></th>
+          <th class="mprice">판매가<small>쿠팡 기준</small></th>
+          <th class="date">최초 확인</th>
         </tr></thead>
         <tbody id="matches"></tbody>
       </table>
     </div>
+    <p id="market-note" class="fresh-note" style="margin-top:12px"></p>
     <nav id="pager" class="pager" aria-label="페이지 이동"></nav>
   </section>
 </main>

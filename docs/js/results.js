@@ -1,10 +1,10 @@
-import { $, esc, safeUrl, store, initLayout, parseItem, parseKst, ago, loadLatest } from "./common.js";
+import { $, esc, safeUrl, store, initLayout, parseItem, parseKst, ago, loadLatest, loadMarket, modelCodes, won, coupangSearchUrl } from "./common.js";
 
 initLayout("results");
 
 const SIZES = [10, 20, 30, 50, 70, 100];
-const SORTS = ["default", "price-asc", "price-desc"];
-const state = { rows: [], q: "", category: "", newOnly: false, sort: "default", size: 20, page: 1 };
+const SORTS = ["default", "price-asc", "price-desc", "discount-desc"];
+const state = { rows: [], q: "", category: "", newOnly: false, sort: "default", size: 20, page: 1, market: null };
 
 // ---- URL/저장값 → 상태 (링크로 필터 상태를 공유할 수 있음)
 (function restore() {
@@ -30,6 +30,19 @@ function syncUrl() {
   history.replaceState(null, "", location.pathname + (qs ? "?" + qs : ""));
 }
 
+// 판매가(외부 쇼핑몰) 정보: market_prices.json 의 links[링크] → 모델명 → models[모델명]
+function marketOf(m) {
+  const mk = state.market;
+  const model = (mk?.links && mk.links[m.link]) || modelCodes(m.text)[0] || "";
+  const e = model && mk?.models ? mk.models[model] : null;
+  const emp = parseItem(m.text).priceNum;
+  if (e && e.price) {
+    const pct = emp && e.price ? Math.round((1 - emp / e.price) * 100) : null;   // 판매가 대비 직원가가 몇 % 싼지
+    return { model, ...e, pct };
+  }
+  return { model, price: null, pct: null };
+}
+
 function filtered() {
   let r = state.rows.slice();
   if (state.category) r = r.filter((m) => m.category === state.category);
@@ -39,7 +52,15 @@ function filtered() {
     const t = `${m.category || ""} ${m.keyword || ""} ${m.text || ""}`.toLowerCase();
     return tokens.every((k) => t.includes(k));
   });
-  if (state.sort !== "default") {
+  if (state.sort === "discount-desc") {
+    r.sort((a, b) => {
+      const da = marketOf(a).pct, db = marketOf(b).pct;
+      if (da == null && db == null) return 0;
+      if (da == null) return 1;               // 판매가를 모르는 물품은 뒤로
+      if (db == null) return -1;
+      return db - da;
+    });
+  } else if (state.sort !== "default") {
     const dir = state.sort === "price-asc" ? 1 : -1;
     r.sort((a, b) => {
       const pa = parseItem(a.text).priceNum, pb = parseItem(b.text).priceNum;
@@ -50,6 +71,32 @@ function filtered() {
     });
   }
   return r;
+}
+
+function marketCell(m) {
+  const mk = marketOf(m);
+  if (mk.price) {
+    const url = safeUrl(mk.url);
+    const price = url ? `<a href="${esc(url)}" target="_blank" rel="noopener sponsored" title="${esc(mk.name || "")}">${won(mk.price)}</a>` : `<b>${won(mk.price)}</b>`;
+    let note = esc(mk.mall || "쿠팡");
+    if (mk.pct != null) note += mk.pct > 0 ? ` · 직원가 <span class="save">−${mk.pct}%</span>` : mk.pct < 0 ? ` · 직원가 +${-mk.pct}%` : " · 직원가와 동일";
+    if (mk.source === "manual") note += " · 수동";
+    return `${price}<small title="${esc(mk.checked_at || "")}">${note}</small>`;
+  }
+  const q = mk.model || parseItem(m.text).title;
+  return `<span class="muted">-</span><small><a href="${esc(coupangSearchUrl(q))}" target="_blank" rel="noopener">쿠팡에서 검색</a></small>`;
+}
+
+function marketNote() {
+  const mk = state.market, el = $("market-note");
+  const priced = mk?.models ? Object.values(mk.models).filter((e) => e.price) : [];
+  let t = "※ 직원가는 등외급몰 혜택가, 판매가는 쿠팡(신제품) 검색 결과의 참고 가격입니다. 등급·옵션·재고가 달라 단순 비교는 어렵습니다.";
+  if (!priced.length) t += " 판매가 자동 조회는 쿠팡 파트너스 키를 등록하면 활성화됩니다(README 참고).";
+  else {
+    t += ` (판매가 기준: ${mk.updated_at || "-"})`;
+    if (priced.some((e) => e.source === "coupang-partners")) t += " 쿠팡 링크는 쿠팡 파트너스 활동의 일환으로, 구매 시 일정액의 수수료를 받을 수 있습니다.";
+  }
+  el.textContent = t;
 }
 
 function draw() {
@@ -75,9 +122,10 @@ function draw() {
       <td class="prod" data-label="상품"><div class="pwrap">
         <span class="thumb">${img ? `<img src="${esc(img)}" alt="" loading="lazy" onerror="this.remove()">` : ""}</span>
         <div class="ptxt">${m.is_new ? '<span class="new">NEW</span> ' : ""}${name}${it.desc ? `<small>${esc(it.desc.slice(0, 110))}</small>` : ""}</div></div></td>
-      <td class="price" data-label="가격">${esc(it.price)}</td>
+      <td class="price" data-label="직원가">${esc(it.price)}</td>
+      <td class="mprice" data-label="판매가(쿠팡)">${marketCell(m)}</td>
       <td class="date" data-label="최초 확인">${esc(m.first_seen || "-")}</td></tr>`;
-  }).join("") : `<tr><td colspan="5" class="empty">${filtering ? "조건에 맞는 물품이 없습니다." : "일치하는 물품이 없습니다."}</td></tr>`;
+  }).join("") : `<tr><td colspan="6" class="empty">${filtering ? "조건에 맞는 물품이 없습니다." : "일치하는 물품이 없습니다."}</td></tr>`;
 
   // 페이지 번호: « ‹ 1 … 현재±2 … 마지막 › »
   const nums = new Set([1, pages]);
@@ -92,6 +140,7 @@ function draw() {
   });
   html += btn("›", state.page + 1, state.page === pages ? "disabled" : "") + btn("»", pages, state.page === pages ? "disabled" : "");
   $("pager").innerHTML = pages > 1 ? html : "";
+  marketNote();
   syncUrl();
 }
 
@@ -115,7 +164,8 @@ $("page-size").onchange = (e) => {
 };
 
 (async () => {
-  const latest = await loadLatest();
+  const [latest, market] = await Promise.all([loadLatest(), loadMarket()]);
+  state.market = market;
   if (!latest) { $("status").textContent = "결과를 불러오지 못했습니다."; draw(); return; }
   state.rows = latest.matches || [];
   const checked = parseKst(latest.checked_at);
