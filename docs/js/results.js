@@ -1,4 +1,4 @@
-import { $, esc, safeUrl, store, initLayout, parseItem, loadLatest } from "./common.js";
+import { $, esc, safeUrl, store, initLayout, parseItem, parseKst, ago, loadLatest } from "./common.js";
 
 initLayout("results");
 
@@ -118,7 +118,18 @@ $("page-size").onchange = (e) => {
   const latest = await loadLatest();
   if (!latest) { $("status").textContent = "결과를 불러오지 못했습니다."; draw(); return; }
   state.rows = latest.matches || [];
-  $("status").textContent = latest.checked_at ? `마지막 확인: ${latest.checked_at} · ${latest.status}` : "아직 실행 기록이 없습니다.";
+  const checked = parseKst(latest.checked_at);
+  $("status").textContent = latest.checked_at
+    ? `마지막 확인: ${latest.checked_at}${checked ? ` (${ago(checked)})` : ""} · ${latest.status}` : "아직 실행 기록이 없습니다.";
+  if (checked) {
+    const hours = (Date.now() - checked.getTime()) / 3600e3;
+    const note = $("fresh-note");
+    note.hidden = false;
+    note.classList.toggle("warn", hours >= 3);
+    note.textContent = hours >= 3
+      ? `⚠️ 마지막 확인이 ${ago(checked)}입니다. 그 사이 판매되어 재고가 없어졌을 수 있으니 구매 전에 사이트에서 확인하세요.`
+      : "※ 마지막 확인 시점 기준입니다. 다른 분이 구매하면 재고가 바로 없어질 수 있습니다.";
+  }
   const cats = [...new Set(state.rows.map((m) => m.category).filter(Boolean))];
   if (state.category && !cats.includes(state.category)) cats.push(state.category);
   $("category").innerHTML = '<option value="">전체</option>' + cats.map((c) => `<option>${esc(c)}</option>`).join("");
