@@ -70,13 +70,16 @@ jobs:
           [ "${{ inputs.preview_mail }}" = "true" ] && ARGS="$ARGS --preview-mail"
           python scripts/check_items.py $ARGS
 
-      - name: Update market prices (쿠팡 판매가)
-        # 실제 실행(메일 모드)일 때만, 쿠팡 파트너스 키가 있으면 판매가를 조회한다. 실패해도 알림 실행은 성공으로 유지.
+      - name: "Update market prices (판매가 - 쿠팡/네이버)"
+        # 실제 실행(메일 모드)일 때만, 키가 있는 공급자(쿠팡 파트너스·네이버 쇼핑)로 판매가를 조회한다. 실패해도 알림 실행은 성공으로 유지.
         if: success() && !(inputs.dry_run || inputs.test_email || inputs.inspect || inputs.preview_mail)
         continue-on-error: true
         env:
           COUPANG_ACCESS_KEY: ${{ secrets.COUPANG_ACCESS_KEY }}
           COUPANG_SECRET_KEY: ${{ secrets.COUPANG_SECRET_KEY }}
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          MARKET_PROVIDERS: ${{ vars.MARKET_PROVIDERS }}
         run: python scripts/market_prices.py
 
       - name: Upload debug artifacts

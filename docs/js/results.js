@@ -1,4 +1,4 @@
-import { $, esc, safeUrl, store, initLayout, parseItem, parseKst, ago, loadLatest, loadMarket, modelCodes, won, coupangSearchUrl } from "./common.js";
+import { $, esc, safeUrl, store, initLayout, parseItem, parseKst, ago, loadLatest, loadMarket, modelCodes, won, coupangSearchUrl, naverSearchUrl } from "./common.js";
 
 initLayout("results");
 
@@ -77,21 +77,22 @@ function marketCell(m) {
   const mk = marketOf(m);
   if (mk.price) {
     const url = safeUrl(mk.url);
-    const price = url ? `<a href="${esc(url)}" target="_blank" rel="noopener sponsored" title="${esc(mk.name || "")}">${won(mk.price)}</a>` : `<b>${won(mk.price)}</b>`;
-    let note = esc(mk.mall || "쿠팡");
+    const rel = mk.source === "coupang-partners" ? "noopener sponsored" : "noopener";   // 쿠팡 파트너스 링크만 제휴 표기
+    const price = url ? `<a href="${esc(url)}" target="_blank" rel="${rel}" title="${esc(mk.name || "")}">${won(mk.price)}</a>` : `<b>${won(mk.price)}</b>`;
+    let note = esc(mk.mall || "외부몰");
     if (mk.pct != null) note += mk.pct > 0 ? ` · 직원가 <span class="save">−${mk.pct}%</span>` : mk.pct < 0 ? ` · 직원가 +${-mk.pct}%` : " · 직원가와 동일";
     if (mk.source === "manual") note += " · 수동";
     return `${price}<small title="${esc(mk.checked_at || "")}">${note}</small>`;
   }
   const q = mk.model || parseItem(m.text).title;
-  return `<span class="muted">-</span><small><a href="${esc(coupangSearchUrl(q))}" target="_blank" rel="noopener">쿠팡에서 검색</a></small>`;
+  return `<span class="muted">-</span><small><a href="${esc(coupangSearchUrl(q))}" target="_blank" rel="noopener">쿠팡 검색</a> · <a href="${esc(naverSearchUrl(q))}" target="_blank" rel="noopener">네이버 검색</a></small>`;
 }
 
 function marketNote() {
   const mk = state.market, el = $("market-note");
   const priced = mk?.models ? Object.values(mk.models).filter((e) => e.price) : [];
-  let t = "※ 직원가는 등외급몰 혜택가, 판매가는 쿠팡(신제품) 검색 결과의 참고 가격입니다. 등급·옵션·재고가 달라 단순 비교는 어렵습니다.";
-  if (!priced.length) t += " 판매가 자동 조회는 쿠팡 파트너스 키를 등록하면 활성화됩니다(README 참고).";
+  let t = "※ 직원가는 등외급몰 혜택가, 판매가는 쿠팡·네이버쇼핑 검색 결과의 신제품 최저가 참고값입니다. 등급·옵션·재고가 달라 단순 비교는 어렵습니다.";
+  if (!priced.length) t += " 판매가 자동 조회는 네이버 쇼핑 검색 API 또는 쿠팡 파트너스 키를 등록하면 활성화됩니다(README 참고).";
   else {
     t += ` (판매가 기준: ${mk.updated_at || "-"})`;
     if (priced.some((e) => e.source === "coupang-partners")) t += " 쿠팡 링크는 쿠팡 파트너스 활동의 일환으로, 구매 시 일정액의 수수료를 받을 수 있습니다.";
@@ -123,7 +124,7 @@ function draw() {
         <span class="thumb">${img ? `<img src="${esc(img)}" alt="" loading="lazy" onerror="this.remove()">` : ""}</span>
         <div class="ptxt">${m.is_new ? '<span class="new">NEW</span> ' : ""}${name}${it.desc ? `<small>${esc(it.desc.slice(0, 110))}</small>` : ""}</div></div></td>
       <td class="price" data-label="직원가">${esc(it.price)}</td>
-      <td class="mprice" data-label="판매가(쿠팡)">${marketCell(m)}</td>
+      <td class="mprice" data-label="판매가">${marketCell(m)}</td>
       <td class="date" data-label="최초 확인">${esc(m.first_seen || "-")}</td></tr>`;
   }).join("") : `<tr><td colspan="6" class="empty">${filtering ? "조건에 맞는 물품이 없습니다." : "일치하는 물품이 없습니다."}</td></tr>`;
 

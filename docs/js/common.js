@@ -181,3 +181,4 @@ export async function loadMarket() {
 }
 export const won = (n) => `${Number(n).toLocaleString("ko-KR")}원`;
 export const coupangSearchUrl = (q) => `https://www.coupang.com/np/search?q=${encodeURIComponent(q)}`;
+export const naverSearchUrl = (q) => `https://search.shopping.naver.com/search/all?query=${encodeURIComponent(q)}`;
