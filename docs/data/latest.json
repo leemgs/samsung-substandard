@@ -1,61 +1,7 @@
 {
-  "checked_at": "2026-11-19 12:11 KST",
-  "status": "정상 (수집 62건, 일치 62건, 신규 36건)",
+  "checked_at": "2026-11-19 20:31 KST",
+  "status": "정상 (수집 54건, 일치 54건, 신규 0건)",
   "matches": [
-    {
-      "keyword": "세탁건조기",
-      "category": "세탁건조기",
-      "text": "설치상품 다크스틸 Bespoke AI 콤보 25/18kg (177.8mm LCD) WD90F25AHS 2,003,800원 구매하기 세탁물 이동 없이 편리하게 하나로 세탁·건조하는 ONE 솔루션 국내 최대 용량으로 건조까지 빠르게 쾌속 코스 79분 한눈에 보여주고 자연스럽게 대화하는 AI 홈",
-      "link": "https://www.familynet.kr/laundry-combo/WD90F25AHS/WD90F25AHS/",
-      "image": "https://images.samsung.com/kdp/goods/2025/04/15/5700675b-2e15-4287-9ae7-b39bb69d2955.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": false
-    },
-    {
-      "keyword": "세탁건조기",
-      "category": "세탁건조기",
-      "text": "설치상품 그레이지 Bespoke AI 콤보 25/18kg (177.8mm LCD) WD90F25AHY 2,003,800원 구매하기 세탁물 이동 없이 편리하게 하나로 세탁·건조하는 ONE 솔루션 국내 최대 용량으로 건조까지 빠르게 쾌속 코스 79분 한눈에 보여주고 자연스럽게 대화하는 AI 홈",
-      "link": "https://www.familynet.kr/laundry-combo/WD90F25AHY/WD90F25AHY/",
-      "image": "https://images.samsung.com/kdp/goods/2025/04/01/fbd81ded-0c4b-42f4-bd69-908008a1c30f.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": true
-    },
-    {
-      "keyword": "세탁건조기",
-      "category": "세탁건조기",
-      "text": "설치상품 화이트 Bespoke AI 콤보 25/18kg (71.1mm LCD+다이얼) WD80H25BHW 1,553,900원 구매하기 세탁부터 건조까지 한 번에 ONE 솔루션 대용량 건조로 넉넉하게 건조까지 89분으로 빠르게 AI가 알아서 최적의 코스로 AI 맞춤+",
-      "link": "https://www.familynet.kr/laundry-combo/WD80H25BHW/WD80H25BHW/",
-      "image": "https://images.samsung.com/kdp/goods/2026/06/02/b4e1e13a-153d-42e9-b6bc-271012b2b41f.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": true
-    },
-    {
-      "keyword": "세탁건조기",
-      "category": "세탁건조기",
-      "text": "설치상품 그레이지 Bespoke AI 콤보 25/20kg (177.8mm LCD) WD90H25BHY 1,958,700원 구매하기 세탁부터 건조까지 한 번에 ONE 솔루션 세탁 25kg, 건조 20kg 국내 최대 용량 AI 콤보 한 대로 단 89분 만에 끝내는 세탁 라이프",
-      "link": "https://www.familynet.kr/laundry-combo/WD90H25BHY/WD90H25BHY/",
-      "image": "https://images.samsung.com/kdp/goods/2026/05/12/574d43b7-eee5-4740-a782-0d0512c01d47.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": true
-    },
-    {
-      "keyword": "세탁건조기",
-      "category": "세탁건조기",
-      "text": "설치상품 다크스틸 Bespoke AI 콤보 25/20kg (177.8mm LCD) WD90H25AHS 2,048,900원 구매하기 세탁부터 건조까지 한 번에 ONE 솔루션 세탁 25kg, 건조 20kg 국내 최대 용량 AI 콤보 한 대로 단 69분 만에 끝내는 세탁 라이프",
-      "link": "https://www.familynet.kr/laundry-combo/WD90H25AHS/WD90H25AHS/",
-      "image": "https://images.samsung.com/kdp/goods/2026/04/23/f3cb5bab-695f-4d53-a6b0-1fd7a8247183.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": true
-    },
-    {
-      "keyword": "세탁건조기",
-      "category": "세탁건조기",
-      "text": "설치상품 그레이지 Bespoke AI 콤보 25/20kg (177.8mm LCD) WD90H25AHY 2,048,900원 구매하기 세탁부터 건조까지 한 번에 ONE 솔루션 세탁 25kg, 건조 20kg 국내 최대 용량 AI 콤보 한 대로 단 69분 만에 끝내는 세탁 라이프",
-      "link": "https://www.familynet.kr/laundry-combo/WD90H25AHY/WD90H25AHY/",
-      "image": "https://images.samsung.com/kdp/goods/2026/04/23/bb092288-78c8-493a-821e-bef7aa87d91b.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": true
-    },
     {
       "keyword": "모니터",
       "category": "모니터",
@@ -63,7 +9,7 @@
       "link": "https://www.familynet.kr/monitor/LS32DM500EKXKR/LS32DM500EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2026/10/20/9f97c358-cd65-40c3-a201-1f3ef2bcd763.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -72,7 +18,7 @@
       "link": "https://www.familynet.kr/monitor/LS27D402GAKXKR/LS27D402GAKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2026/11/19/4360da48-28a1-44dd-bcc3-f981ecdb0036.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -81,7 +27,7 @@
       "link": "https://www.familynet.kr/monitor/LS27F322GAKXKR/LS27F322GAKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2026/07/28/bdffcdfe-4b98-495a-b160-fe75d4c93e2a.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -126,7 +72,7 @@
       "link": "https://www.familynet.kr/monitor/LS32FG500EKXKR/LS32FG500EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2026/07/28/d56edc3c-7948-4a6b-aca6-b0596bae4e35.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -135,7 +81,7 @@
       "link": "https://www.familynet.kr/monitor/LS32FG510EKXKR/LS32FG510EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2026/07/28/7cee1759-eb36-4599-9e11-0983c3f25f3e.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -154,24 +100,6 @@
       "image": "https://images.samsung.com/kdp/goods/2026/07/28/9895cfa1-d7c1-46fc-89d8-40e9f18ce5d5.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-17",
       "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
-      "text": "2025 스마트모니터 M7 M70F 4K 블랙 (LS43FM700) LS43FM700UKXKR 273,000원 구매하기",
-      "link": "https://www.familynet.kr/monitor/LS43FM700UKXKR/LS43FM700UKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2026/04/07/35e2962b-4a08-4d6c-a41d-0665d21f4eac.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": true
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
-      "text": "에센셜모니터 S40GD (68.6cm) LS27D400GAKXKR 97,000원 구매하기 다양한 각도에서도 선명한 색상 IPS 패널 한층 더 부드럽고 생동감 있는 화면 100Hz 주사율 눈의 피로 걱정을 줄여주는 모니터 눈 보호 모드",
-      "link": "https://www.familynet.kr/monitor/LS27D400GAKXKR/LS27D400GAKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2026/01/13/e2737a1c-6b4b-40eb-b02e-e08ccca306bd.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": true
     },
     {
       "keyword": "모니터",
@@ -198,7 +126,7 @@
       "link": "https://www.familynet.kr/monitor/LS32D396GAKXKR/LS32D396GAKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2026/01/13/d6e80719-d579-4716-bd0e-8d46e0fa43cf.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -207,7 +135,7 @@
       "link": "https://www.familynet.kr/monitor/LS32FG504EKXKR/LS32FG504EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2026/01/13/b65e85be-cc92-4e84-9cca-2e2b1fea7588.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -216,7 +144,7 @@
       "link": "https://www.familynet.kr/monitor/LS40FG750EKXKR/LS40FG750EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2026/01/13/3bfe65c3-19d2-424e-bfe1-1b401c690bc4.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -225,7 +153,7 @@
       "link": "https://www.familynet.kr/monitor/LS32FM1E3UKXKR/LS32FM1E3UKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/11/18/4d83ebba-d8a7-4027-a884-ca755bdab848.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -234,7 +162,7 @@
       "link": "https://www.familynet.kr/monitor/LS32FM701UKXKR/LS32FM701UKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/11/18/3b79ceef-f445-4f93-ab0f-dcab806c972e.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -243,7 +171,7 @@
       "link": "https://www.familynet.kr/monitor/LS27F610EAKXKR/LS27F610EAKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/10/21/2428d603-e57c-45d1-9b79-26a8234c9083.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -252,7 +180,7 @@
       "link": "https://www.familynet.kr/monitor/LS32FM503EKXKR/LS32FM503EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/10/21/aabea3f9-d75d-473d-a2ea-f6292433147f.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -270,7 +198,7 @@
       "link": "https://www.familynet.kr/monitor/LS27D304GAKXKR/LS27D304GAKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/09/23/5ecce6ea-f2c1-4d06-868c-78ab39210291.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -288,7 +216,7 @@
       "link": "https://www.familynet.kr/monitor/LS32D706EBKXKR/LS32D706EBKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/09/23/8080e702-e030-465c-abd4-bda5e8d7e845.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -297,7 +225,7 @@
       "link": "https://www.familynet.kr/monitor/LS37D700EAKXKR/LS37D700EAKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/09/23/81f898f6-5add-475c-80c3-7daf22232c1a.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -306,7 +234,7 @@
       "link": "https://www.familynet.kr/monitor/LS32FG810SKXKR/LS32FG810SKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/09/18/c8f07734-0b75-471c-9597-f5d09f3d8817.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -324,7 +252,7 @@
       "link": "https://www.familynet.kr/monitor/LS43FM701UKXKR/LS43FM701UKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/09/18/8fd3ca70-885d-4ec2-96e7-db6e04de517d.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -351,7 +279,7 @@
       "link": "https://www.familynet.kr/monitor/LS27D302GAKXKR/LS27D302GAKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/07/14/aacffbeb-2ea3-4059-9772-ef450a12ba19.jpg?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -369,7 +297,7 @@
       "link": "https://www.familynet.kr/monitor/LS32D700EAKXKR/LS32D700EAKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/07/14/35a863c2-5420-4a3e-ac2f-fea4b1bac0e7.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -387,7 +315,7 @@
       "link": "https://www.familynet.kr/monitor/LS27D396GAKXKR/LS27D396GAKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/07/10/29f4cfe6-de4f-4e2b-8616-9b8e5aff09d1.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -396,7 +324,7 @@
       "link": "https://www.familynet.kr/monitor/LS27D604UAKXKR/LS27D604UAKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/07/10/29d5b6f1-4354-461e-bb89-be09a57ce1bd.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -405,7 +333,7 @@
       "link": "https://www.familynet.kr/monitor/LS32D800UBKXKR/LS32D800UBKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/07/10/c1a57b3e-185f-4f5a-b5e0-003c3f595728.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -414,7 +342,7 @@
       "link": "https://www.familynet.kr/monitor/LS32DG702EKXKR/LS32DG702EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/07/10/5d635e18-860c-4612-8a89-5098582c5ec1.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -423,7 +351,7 @@
       "link": "https://www.familynet.kr/monitor/LS32FG812SKXKR/LS32FG812SKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/07/10/edd3d047-3360-4d70-b105-fd68d71650ef.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -441,7 +369,7 @@
       "link": "https://www.familynet.kr/monitor/LS32CG550EKXKR/LS32CG550EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/02/06/a6c806f8-2f50-4197-bce5-78fbde589189.jpg?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -459,7 +387,7 @@
       "link": "https://www.familynet.kr/monitor/LS32CG554EKXKR/LS32CG554EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/02/04/ad736b54-de58-47c1-88b1-c16c7c38479e.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -477,7 +405,7 @@
       "link": "https://www.familynet.kr/monitor/LS32DG304EKXKR/LS32DG304EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/02/04/9a8fa177-c37a-40a1-af6a-504386be77fa.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -495,7 +423,7 @@
       "link": "https://www.familynet.kr/monitor/LS34DG852SKXKR/LS34DG852SKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/02/04/14bee611-cac4-402e-bf14-18f0a907b927.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
@@ -513,7 +441,7 @@
       "link": "https://www.familynet.kr/monitor/LS32DM501EKXKR/LS32DM501EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2024/08/16/30ce2d6d-55c3-4d18-a55b-2bae9c48e990.jpg?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "모니터",
