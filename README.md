@@ -3,6 +3,11 @@
 삼성전자 등외급 사내판매 사이트에 **매일 오후 1시 17분(KST)과 화·목 12:10~18:10(1시간 간격)** GitHub Actions가 로그인하여,
 등록한 키워드와 일치하는 **신규 물품**이 올라오면 **Gmail SMTP**로 메일을 보냅니다.
 
+**주요 기능**
+- 관심 키워드와 일치하는 **신규 물품 메일 알림** (카테고리명·물품명 모두 검사, 이미 알린 물품은 중복 발송 안 함)
+- **웹앱**(GitHub Pages): 대시보드·키워드 관리·확인 결과(검색/필터/정렬)·운영 안내·이용 가이드
+- **직원가 vs 판매가** 비교: 네이버 쇼핑/쿠팡 신제품 최저가와 할인율 표시 (선택, 키 등록 필요)
+
 ```
 docs/ (GitHub Pages 웹앱: 키워드 관리·결과 확인)
   └─ docs/data/keywords.json ─▶ .github/workflows/familynet-alert.yml (cron 17 4 * * * = 매일 13:17 KST, 10 3-9 * * 2,4 = 화·목 12:10~18:10 KST)
@@ -17,30 +22,67 @@ docs/ (GitHub Pages 웹앱: 키워드 관리·결과 확인)
 > **이용 가이드**: 등급(A/B/C)·구매 대상·수량 제한·문의처는 웹앱의 [`docs/guide.html`](docs/guide.html) (메인 화면의 "📖 등외급몰 이용 가이드" 링크)에서 볼 수 있습니다.
 
 ## 설정
-1. **Secrets** (Settings → Secrets and variables → Actions)
-   | 이름 | 설명 |
-   | --- | --- |
-   | `FAMILYNET_ID` / `FAMILYNET_PW` | 사내판매 사이트 계정 |
-   | `GMAIL_APP_PASSWORD` | Gmail 앱 비밀번호 (2단계 인증 후 발급) |
-   | `FAMILYNET_URL` | (선택) 사이트 주소. 기본값은 `config/site.json`의 `base_url` |
-2. `config/email.json`에서 발신/수신 주소 수정.
-3. **사이트 주소 확인**: 요청서의 `familynetk.r`은 오타로 보여 `https://www.familynet.kr`로 가정했습니다. 다르면 `FAMILYNET_URL` 또는 `config/site.json`을 수정하세요.
+1. **Secrets** (Settings → Secrets and variables → Actions → **Secrets** 탭의 *Repository secrets*)
+   | 이름 | 필수 | 설명 |
+   | --- | --- | --- |
+   | `FAMILYNET_ID` / `FAMILYNET_PW` | 필수 | 등외급몰 계정 (아이디는 사번). `FAMILYNET_ID` 는 Variables 에 있어도 읽지만 로그에 노출되니 Secrets 권장 |
+   | `GMAIL_APP_PASSWORD` | 필수 | Gmail 앱 비밀번호 (2단계 인증 후 발급) |
+   | `FAMILYNET_URL` | 선택 | 사이트 주소. 기본값은 `config/site.json`의 `base_url` |
+   | `NAVER_CLIENT_ID` / `NAVER_CLIENT_SECRET` | 선택 | 네이버 쇼핑 검색 API 키 (판매가 표시) |
+   | `COUPANG_ACCESS_KEY` / `COUPANG_SECRET_KEY` | 선택 | 쿠팡 파트너스 Open API 키 (판매가 표시) |
+   | **Variables 탭** `MARKET_PROVIDERS` | 선택 | 판매가 공급자 순서 (예: `naver,coupang`) |
+
+   > ⚠️ **등록 위치와 이름이 중요합니다.** *Variables*·*Codespaces*·*Dependabot* 탭에 넣거나 이름이 한 글자라도 다르면 워크플로가 값을 읽지 못합니다(로그에는 빈 값으로 보임).
+2. `config/email.json`에서 발신/수신 주소 수정. (웹앱 **관심 키워드** 페이지에서 수신 이메일을 지정하면 그 주소를 우선 사용합니다.)
+3. **사이트**는 `https://www.familynet.kr` 입니다(`config/site.json`의 `base_url`). 다르면 `FAMILYNET_URL` 또는 `config/site.json` 을 수정하세요.
 4. **Pages 켜기**: Settings → Pages → Branch `main`, 폴더 `/docs`.
 5. 웹앱에서 **설정**에 저장소·토큰 등록 → **관심 키워드**에서 등록·저장(토큰 없이는 JSON 다운로드).
 
-## 사이트 구조에 맞추기 (`config/site.json`)
-사이트에 접속할 수 없는 환경에서 만들었기 때문에 로그인/목록 구조는 **자동 감지**(비밀번호 입력칸, 제출 버튼, `tr/li/article/.item…` 목록)로 시작합니다.
-첫 실행이 실패하거나 결과가 이상하면 `login_url`, `user_selector`, `password_selector`, `submit_selector`, `list_urls`, `item_selector`, `next_page_selector`를 지정하세요.
-실패 시 Actions의 `debug` 아티팩트(스크린샷/HTML)로 원인을 확인할 수 있습니다.
+## 사이트 설정 (`config/site.json`)
+현재 값은 등외급몰(`https://www.familynet.kr`) 구조에 맞춰져 있습니다.
+
+| 키 | 의미 (현재 값) |
+| --- | --- |
+| `login_url`, `user_selector`, `password_selector`, `submit_selector` | 로그인 화면과 입력칸·버튼 (`#inpUserAccount`, `#inpUserPassword`, `#loginBtn`) |
+| `list_urls` | 확인할 카테고리 목록. `{"url": …, "category": "모니터"}` 형식이며 **카테고리명도 키워드 매칭에 쓰입니다.** 현재: 세탁건조기, 모니터, 에어컨 |
+| `item_selector` | 상품 카드 선택자 (`.item-inner`) |
+| `load_more_selector`, `max_more` | `더보기` 버튼(`#morePrd`)을 끝까지 눌러 전체 수집 |
+| `empty_text` | 빈 카테고리 안내문 ("판매 가능한 상품이 없습니다") — 이 경우 0건을 정상으로 처리 |
+| `next_page_selector`, `max_pages` | 페이지 이동형 목록용 (현재 미사용) |
+| `timeout_ms` | 대기 시간 |
+
+- **카테고리 추가**: 사이트 주소 규칙은 `/<이름>/all-<이름>/` 입니다(예: `…/air-conditioner/all-air-conditioner/`). Actions 의 `inspect` 실행 로그에 나오는 `category_links` 에서 주소를 찾아 `list_urls` 에 추가하세요.
+- **안전장치**: 목록에서 상품도 빈 목록 안내문도 못 찾으면 실패 처리하고, 사이트에 표시된 "검색 결과 N개"보다 적게 수집하면 상태가 `주의 ⚠️` 로 표시됩니다.
+- 실패하면 Actions 의 `debug` 아티팩트(스크린샷/HTML, 계정 정보 마스킹, 1일 보관)로 원인을 확인하세요. 로그인 직후 안내 팝업은 자동으로 닫고, 등재 시간(화·목 00~12시) 차단 팝업은 계정 정보를 보내기 전에 감지해 즉시 알려줍니다.
 
 ## 실행/점검
-- Actions → *Familynet Alert* → Run workflow: `test_email`(SMTP 점검), `dry_run`(메일 없이 결과만).
-- 키워드는 공백으로 나눈 단어가 **모두** 포함될 때 일치(대소문자 무시). 한 번 알린 물품은 `state/seen.json`으로 중복 발송하지 않습니다.
+Actions → *Familynet Alert* → **Run workflow** 의 입력값:
+
+| 입력 | 동작 |
+| --- | --- |
+| *(모두 비움)* | **실제 실행**: 신규 물품 메일 발송 + 상태 저장 + 판매가 갱신 |
+| `dry_run` | 메일·상태 저장 없이 로그인·수집·매칭 결과만 확인 |
+| `test_email` | SMTP 테스트 메일만 발송 |
+| `preview_mail` | 현재 일치 물품 최대 3건을 "미리보기" 메일로 발송 (상태 저장 안 함) |
+| `baseline` | 현재 일치 물품을 "이미 본 것"으로만 기록 (메일 없음). `baseline_categories`(예: `모니터,에어컨`)로 일부 카테고리만 처리 가능 |
+| `inspect` | 읽기 전용 점검: `더보기`/페이지 구조, 총 개수, 카테고리 링크를 로그로 출력하고 스크린샷을 아티팩트로 저장 |
+
+- 키워드는 공백으로 나눈 단어가 **모두** 포함될 때 일치(대소문자 무시)하며 물품명과 **카테고리명**을 함께 검사합니다. 한 번 알린 물품은 `state/seen.json` 으로 중복 발송하지 않습니다.
+- 상태 저장(커밋)은 웹앱 키워드 저장 등과 동시에 겹쳐도 유실되지 않도록 **최대 5회 재시도**합니다.
 - 로컬: `pip install -r scripts/requirements.txt && playwright install chromium` 후 `python scripts/check_items.py --dry-run`.
+
+**데이터 파일**
+
+| 파일 | 내용 |
+| --- | --- |
+| `docs/data/keywords.json` | 관심 키워드, 수신 이메일 (웹앱에서 저장) |
+| `docs/data/latest.json` | 마지막 확인 결과 (웹앱 홈·확인 결과가 표시) |
+| `docs/data/market_prices.json` | 판매가 조회 결과/캐시 (수동 입력 가능) |
+| `state/seen.json` | 이미 알린 물품 (중복 방지) |
 
 > 참고: 사내 사이트가 GitHub 호스티드 러너(외부 IP)에서 접근 불가(사내망/VPN 전용)이면 self-hosted runner가 필요합니다.
 
-> **자동 실행 참고**: GitHub `schedule` 은 정각에 몰려 지연·누락될 수 있어 `:17` 분으로 잡았습니다. 이 저장소에서는 `schedule` 실행이 아예 시작되지 않는 현상도 확인되었습니다(2026-11 기준). 그럴 때는 아래 **외부 스케줄러** 설정을 사용하세요.
+> **자동 실행 참고 (2026-11 실측)**: GitHub `schedule` 은 정각에 몰려 지연·누락될 수 있어 `:17`·`:10` 분으로 잡았습니다. 그래도 **11/18~19 이틀간 예정된 약 9회 중 3회만 시작**됐고, 시작 시각도 예정보다 크게 늦었습니다(예: 13:17 예정 → 21:59 KST). 등외급 상품은 등재 후 몇 시간 안에 팔리므로, 시각이 중요하면 아래 **외부 스케줄러** 설정을 사용하세요. 홈 화면의 "마지막 확인"이 오래되면 경고가 표시됩니다.
 
 ## 판매가 표시 — 직원가와 비교 (네이버 쇼핑 / 쿠팡)
 
@@ -79,6 +121,19 @@ docs/ (GitHub Pages 웹앱: 키워드 관리·결과 확인)
 ### 쿠팡 파트너스 키 (선택)
 [쿠팡 파트너스](https://partners.coupang.com) 가입 후 **Open API** 이용을 신청하고 승인받아 Access Key / Secret Key 를 발급받습니다. 가입비·초기 비용은 없고 개인 유형으로 가입할 수 있다고 안내하는 글이 많지만(공식 약관은 확인하지 못했습니다), **API 는 최종 승인 뒤에 쓸 수 있고** 승인에는 활동 채널의 링크 심사가 필요하며 일부 안내에는 **2025-01 이후 첫 매출 15만 원 달성 조건**이 있다고 합니다. 가입 화면과 공식 FAQ 에서 현재 조건을 확인하세요. 키를 등록하면 `COUPANG_ACCESS_KEY`, `COUPANG_SECRET_KEY` Secrets 로 추가합니다.
 
+### 키를 등록했는데 "건너뜁니다"가 나온다면
+실행 로그의 판매가 단계(`Update market prices`)에서 아래처럼 나오면 키를 못 읽은 것입니다.
+
+```
+판매가 조회용 키가 없어 가격 조회를 건너뜁니다. …
+  - 네이버: 비어 있는 환경변수 → NAVER_CLIENT_ID, NAVER_CLIENT_SECRET
+```
+
+1. 키를 **Settings → Secrets and variables → Actions → `Secrets` 탭 → Repository secrets** 에 등록했는지 확인합니다. (`Variables`·`Codespaces`·`Dependabot` 탭은 인식되지 않습니다.)
+2. 이름이 정확히 `NAVER_CLIENT_ID`, `NAVER_CLIENT_SECRET` 인지 확인합니다. (대소문자, 밑줄, 앞뒤 공백)
+3. 로그의 해당 단계 `env:` 블록에서 값이 있으면 `***`, 없으면 빈칸으로 표시됩니다.
+4. 등록 후 **새로 실행**해야 반영됩니다(이미 끝난 실행은 바뀌지 않습니다).
+
 ### 공급자 순서 바꾸기
 저장소 **Settings → Secrets and variables → Actions → Variables** 에 `MARKET_PROVIDERS` 를 만들고 값을 `naver,coupang`(네이버 우선) 또는 `naver`(네이버만)처럼 쉼표로 적습니다. 비워 두면 `coupang,naver` 입니다.
 
@@ -88,7 +143,8 @@ docs/ (GitHub Pages 웹앱: 키워드 관리·결과 확인)
 - 가장 싼 결과를 쓰되 **중고·리퍼·렌탈·전시·반품·개봉** 상품과 직원가의 **50% 미만**(액세서리로 간주)은 제외합니다. 네이버는 추가로 `exclude=used:rental:cbshop`(중고·렌탈·해외직구) 옵션을 쓰고, **일반상품(productType 1~3)** 만 인정합니다(중고·단종·판매예정 제외). `네이버 최저가` 는 가격비교 상품의 최저가, 몰 이름이 보이면 해당 몰의 가격입니다.
 - 같은 모델은 **24시간 동안 재조회하지 않습니다.** 키가 없거나 오류가 나도 알림 실행은 **성공**으로 끝나며 로그에 이유만 남습니다. 인증 오류(401/403)나 네이버 일일 한도 초과(429)면 그 공급자의 나머지 조회를 중단하고 다음 실행에 이어서 합니다.
 - 쿠팡 파트너스 링크가 표시되는 경우에만 **수수료 고지 문구**가 붙고 링크에 `rel="sponsored"` 가 적용됩니다.
-- 첫 실행 로그의 `판매가 갱신: 조회 네이버 N회 · 가격 확인 N건 …` 줄로 정상 여부를 확인하세요.
+- 한 번 실행에 네이버는 최대 80회, 쿠팡은 최대 15회만 조회하므로 물품이 많으면 **몇 번의 실행에 걸쳐 채워집니다**(조회하지 못한 모델은 다음 실행에서 이어서 조회).
+- 로그의 `판매가 갱신: 조회 네이버 N회 · 가격 확인 N건 …` 줄로 동작 여부를 확인하세요. 실제 네이버 호출 결과의 정상 여부는 키 등록 후 첫 실행 로그로 확인해야 합니다.
 
 ### 수동으로 가격 입력하기 (키 없이)
 `docs/data/market_prices.json` 의 `models` 에 직접 적으면 자동 조회가 덮어쓰지 않습니다. 키는 물품의 모델명입니다.
@@ -103,7 +159,7 @@ docs/ (GitHub Pages 웹앱: 키워드 관리·결과 확인)
 
 ## 외부 스케줄러로 안정적으로 실행하기 (권장)
 
-GitHub Actions의 `schedule`(cron)은 부하에 따라 늦거나 건너뛰거나, 새 저장소에서는 아예 시작되지 않을 수 있습니다(이 저장소에서도 자동 실행이 한 번도 시작되지 않았습니다). 등외급 상품은 등재 후 몇 시간 안에 판매되므로, **외부 무료 스케줄러가 정해진 시각에 GitHub API로 워크플로를 직접 실행**하게 하면 가장 안정적입니다. 워크플로에 이미 `workflow_dispatch`가 있어 **코드 변경 없이** 사용할 수 있습니다.
+GitHub Actions의 `schedule`(cron)은 부하에 따라 늦거나 건너뛸 수 있습니다(이 저장소에서는 이틀간 예정 약 9회 중 3회만, 최대 약 8시간 늦게 시작됐습니다). 등외급 상품은 등재 후 몇 시간 안에 판매되므로, **외부 무료 스케줄러가 정해진 시각에 GitHub API로 워크플로를 직접 실행**하게 하면 가장 안정적입니다. 워크플로에 이미 `workflow_dispatch`가 있어 **코드 변경 없이** 사용할 수 있습니다.
 
 ```
 외부 스케줄러(cron-job.org) ──HTTP POST──▶ GitHub API ──▶ Familynet Alert 워크플로 실행 ──▶ 새 물품 메일

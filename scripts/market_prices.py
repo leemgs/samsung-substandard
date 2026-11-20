@@ -90,7 +90,11 @@ def pick_price(cands, codes, emp_price):
 # ---------------------------------------------------------------- 공급자 공통
 class Provider:
     name = label = source = ""
+    env_names = ()                                     # 필요한 환경변수 이름 (값은 출력하지 않는다)
     fatal = (401, 403)                                 # 이 상태 코드면 나머지 조회를 중단
+
+    def missing(self):
+        return [n for n in self.env_names if not os.environ.get(n, "").strip()]
 
     def __init__(self, delay, max_calls):
         self.delay, self.max_calls = delay, max_calls
@@ -155,6 +159,7 @@ def coupang_sign(method, path_and_query, access_key, secret_key, now=None):
 
 class Coupang(Provider):
     name, label, source = "coupang", "쿠팡", "coupang-partners"
+    env_names = ("COUPANG_ACCESS_KEY", "COUPANG_SECRET_KEY")
 
     def __init__(self, delay, max_calls):
         super().__init__(delay, max_calls)
@@ -197,6 +202,7 @@ class Coupang(Provider):
 # ---------------------------------------------------------------- 네이버 쇼핑 검색
 class Naver(Provider):
     name, label, source = "naver", "네이버", "naver-shopping"
+    env_names = ("NAVER_CLIENT_ID", "NAVER_CLIENT_SECRET")
     fatal = (401, 403, 429)                            # 429 = 하루 호출 한도(25,000회) 초과
 
     def __init__(self, delay, max_calls):
@@ -270,23 +276,24 @@ def main():
 
     order = [n.strip() for n in (os.environ.get("MARKET_PROVIDERS") or "coupang,naver").split(",") if n.strip()]
     limits = {"coupang": (args.delay, args.max_calls), "naver": (args.naver_delay, args.naver_max_calls)}
-    providers = []
+    providers, unconfigured = [], []
     for n in order:
         if n not in PROVIDERS:
             print(f"알 수 없는 공급자 '{n}' 은(는) 무시합니다.")
             continue
         p = PROVIDERS[n](*limits[n])
-        if p.configured():
-            providers.append(p)
+        (providers if p.configured() else unconfigured).append(p)
 
     ttl = args.ttl_hours * 3600
     todo = [k for k in wanted
             if models.get(k, {}).get("source") != "manual"
             and time.time() - models.get(k, {}).get("ts", 0) > ttl]
     if not providers:
-        print("판매가 조회용 키가 없어 가격 조회를 건너뜁니다. "
-              "(쿠팡: COUPANG_ACCESS_KEY/SECRET_KEY, 네이버: NAVER_CLIENT_ID/SECRET) "
-              f"대상 모델 {len(wanted)}개, 갱신 필요 {len(todo)}개")
+        print(f"판매가 조회용 키가 없어 가격 조회를 건너뜁니다. 대상 모델 {len(wanted)}개, 갱신 필요 {len(todo)}개")
+        for p in unconfigured:
+            print(f"  - {p.label}: 비어 있는 환경변수 → {', '.join(p.missing())}")
+        print("  ※ GitHub 저장소 Settings → Secrets and variables → Actions → 'Secrets' 탭(Repository secrets)에 "
+              "위 이름 그대로 등록해야 합니다. Variables·Codespaces·Dependabot 탭이나 이름 오타는 인식되지 않습니다.")
         todo = []
 
     found = missed = 0
