@@ -1,6 +1,6 @@
 {
-  "checked_at": "2026-11-20 21:50 KST",
-  "status": "정상 (수집 49건, 일치 49건, 신규 0건)",
+  "checked_at": "2026-11-21 21:36 KST",
+  "status": "정상 (수집 47건, 일치 47건, 신규 0건)",
   "matches": [
     {
       "keyword": "모니터",
@@ -17,15 +17,6 @@
       "text": "IPS 100Hz 에센셜 모니터 (LS27D402) LS27D402GAKXKR 129,000원 구매하기 부드럽고 선명한 화면 : IPS패널, 100Hz 주사율 눈의 피로를 줄여주는 플리커 프리 피봇, 높이조절, 회전, 기울기 지원",
       "link": "https://www.familynet.kr/monitor/LS27D402GAKXKR/LS27D402GAKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2026/11/19/4360da48-28a1-44dd-bcc3-f981ecdb0036.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
-      "text": "에센셜 모니터 S3 S32GF FHD 120Hz (LS27F322) LS27F322GAKXKR 106,000원 구매하기 다양한 각도에서 선명한 색상, IPS 패널 한층 더 부드럽고 생동감 있는 화면, 120Hz 초슬림 디자인 · 눈 보호 모드",
-      "link": "https://www.familynet.kr/monitor/LS27F322GAKXKR/LS27F322GAKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2026/07/28/bdffcdfe-4b98-495a-b160-fe75d4c93e2a.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
       "is_new": false
     },
@@ -197,15 +188,6 @@
       "text": "고해상도 뷰피니티 S7(S70D) 블랙 (80.0 cm) LS32D706EBKXKR 232,000원 구매하기",
       "link": "https://www.familynet.kr/monitor/LS32D706EBKXKR/LS32D706EBKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/09/23/8080e702-e030-465c-abd4-bda5e8d7e845.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
-      "text": "고해상도 뷰피니티 S7(S70D) 블랙 (92.7 cm) LS37D700EAKXKR 276,000원 구매하기 3840x2160 해상도의 선명한 화질 UHD 해상도 더 깊은 명암비로 생생한 컬러 빠르고 쉬운 모니터 세팅 손쉬운 스탠드 설치",
-      "link": "https://www.familynet.kr/monitor/LS37D700EAKXKR/LS37D700EAKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/09/23/81f898f6-5add-475c-80c3-7daf22232c1a.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
       "is_new": false
     },
