@@ -1,6 +1,6 @@
 {
-  "checked_at": "2026-11-21 21:36 KST",
-  "status": "정상 (수집 47건, 일치 47건, 신규 0건)",
+  "checked_at": "2026-11-22 21:32 KST",
+  "status": "정상 (수집 45건, 일치 45건, 신규 1건)",
   "matches": [
     {
       "keyword": "모니터",
@@ -8,15 +8,6 @@
       "text": "스마트모니터 M5 M50D FHD 블랙 (LS32DM500) LS32DM500EKXKR 187,000원 구매하기 좋아하는 OTT 콘텐츠를 바로 플레이 스마트 TV 앱 한곳에서 즐기는 최고 수준의 라인업 게이밍 허브 편리한 연결 다양한 활용 다중 포트 지원",
       "link": "https://www.familynet.kr/monitor/LS32DM500EKXKR/LS32DM500EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2026/10/20/9f97c358-cd65-40c3-a201-1f3ef2bcd763.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
-      "text": "IPS 100Hz 에센셜 모니터 (LS27D402) LS27D402GAKXKR 129,000원 구매하기 부드럽고 선명한 화면 : IPS패널, 100Hz 주사율 눈의 피로를 줄여주는 플리커 프리 피봇, 높이조절, 회전, 기울기 지원",
-      "link": "https://www.familynet.kr/monitor/LS27D402GAKXKR/LS27D402GAKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2026/11/19/4360da48-28a1-44dd-bcc3-f981ecdb0036.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
       "is_new": false
     },
@@ -167,15 +158,6 @@
     {
       "keyword": "모니터",
       "category": "모니터",
-      "text": "에센셜모니터 S30GD (68.6cm) LS27D304GAKXKR 112,000원 구매하기",
-      "link": "https://www.familynet.kr/monitor/LS27D304GAKXKR/LS27D304GAKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/09/23/5ecce6ea-f2c1-4d06-868c-78ab39210291.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
       "text": "QHD 오디세이 OLED G6 500Hz (LS27FG600S) LS27FG600SKXKR 719,000원 구매하기 세계최초 500Hz QD-OLED 모니터 OLED세이프가드+, OLED 3년 무상보증, 글레어프리 정확한 색 표현으로 사실감 넘치는 플레이",
       "link": "https://www.familynet.kr/monitor/LS27FG600SKXKR/LS27FG600SKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/09/23/85707c41-412e-475f-ace2-134431dbf204.png?$Q90_330_330_F_PNG$",
@@ -234,15 +216,6 @@
       "link": "https://www.familynet.kr/monitor/LS43FM703UKXKR/LS43FM703UKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/08/26/9d50c3c9-9630-42df-a2ab-1d36772ebc3e.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-17",
-      "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
-      "text": "에센셜모니터 S30GD (68.6cm) LS27D302GAKXKR 111,000원 구매하기 다양한 각도에서도 선명한 색상 IPS 패널 한층 더 부드럽고 생동감 있는 화면 100Hz 주사율 게임을 승리로 이끄는 게임 모드",
-      "link": "https://www.familynet.kr/monitor/LS27D302GAKXKR/LS27D302GAKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/07/14/aacffbeb-2ea3-4059-9772-ef450a12ba19.jpg?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
       "is_new": false
     },
     {
@@ -388,6 +361,15 @@
       "image": "https://images.samsung.com/kdp/goods/2024/07/16/63ca970f-51df-45ef-90a1-37efc762c2d9.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-17",
       "is_new": false
+    },
+    {
+      "keyword": "모니터",
+      "category": "모니터",
+      "text": "상품준비중 에센셜모니터 S30GD (68.6cm) LS27D304GAKXKR 112,000원",
+      "link": "https://www.familynet.kr/monitor/LS27D304GAKXKR/LS27D304GAKXKR/",
+      "image": "https://images.samsung.com/kdp/goods/2025/09/23/5ecce6ea-f2c1-4d06-868c-78ab39210291.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-19",
+      "is_new": true
     },
     {
       "keyword": "에어컨",
