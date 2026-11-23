@@ -1,16 +1,7 @@
 {
-  "checked_at": "2026-11-22 21:32 KST",
-  "status": "정상 (수집 45건, 일치 45건, 신규 1건)",
+  "checked_at": "2026-11-23 23:31 KST",
+  "status": "정상 (수집 42건, 일치 42건, 신규 0건)",
   "matches": [
-    {
-      "keyword": "모니터",
-      "category": "모니터",
-      "text": "스마트모니터 M5 M50D FHD 블랙 (LS32DM500) LS32DM500EKXKR 187,000원 구매하기 좋아하는 OTT 콘텐츠를 바로 플레이 스마트 TV 앱 한곳에서 즐기는 최고 수준의 라인업 게이밍 허브 편리한 연결 다양한 활용 다중 포트 지원",
-      "link": "https://www.familynet.kr/monitor/LS32DM500EKXKR/LS32DM500EKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2026/10/20/9f97c358-cd65-40c3-a201-1f3ef2bcd763.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": false
-    },
     {
       "keyword": "모니터",
       "category": "모니터",
@@ -107,24 +98,6 @@
       "text": "오디세이 G5 G50F QHD 180Hz (LS32FG504) LS32FG504EKXKR 239,000원 구매하기 QHD 해상도 · 고속 IPS 패널 180Hz 주사율 · 1ms 응답속도(GtG) HDR10 · 피봇/높이조절 스탠드",
       "link": "https://www.familynet.kr/monitor/LS32FG504EKXKR/LS32FG504EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2026/01/13/b65e85be-cc92-4e84-9cca-2e2b1fea7588.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
-      "text": "2025 4K 스마트모니터 M1 화이트 (LS32FM1E3) LS32FM1E3UKXKR 279,000원 구매하기 좋아하는 OTT 콘텐츠를 바로 플레이, 스마트 TV 앱 클릭 투 써치, AVA 기능 삼성 Knox 보안, 멀티 컨트롤, AirPlay 지원",
-      "link": "https://www.familynet.kr/monitor/LS32FM1E3UKXKR/LS32FM1E3UKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/11/18/4d83ebba-d8a7-4027-a884-ca755bdab848.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
-      "text": "2025 4K 스마트모니터 M7 화이트 (LS32FM701) LS32FM701UKXKR 254,000원 구매하기 좋아하는 OTT 콘텐츠를 바로 플레이, 스마트 TV 앱 클릭 투 써치, AVA 기능 삼성 Knox 보안, 멀티 컨트롤, AirPlay 지원",
-      "link": "https://www.familynet.kr/monitor/LS32FM701UKXKR/LS32FM701UKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/11/18/3b79ceef-f445-4f93-ab0f-dcab806c972e.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
       "is_new": false
     },
@@ -369,7 +342,7 @@
       "link": "https://www.familynet.kr/monitor/LS27D304GAKXKR/LS27D304GAKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/09/23/5ecce6ea-f2c1-4d06-868c-78ab39210291.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": true
+      "is_new": false
     },
     {
       "keyword": "에어컨",
