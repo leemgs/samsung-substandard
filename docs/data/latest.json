@@ -1,6 +1,6 @@
 {
-  "checked_at": "2026-11-24 23:49 KST",
-  "status": "정상 (수집 42건, 일치 42건, 신규 0건)",
+  "checked_at": "2026-11-25 23:16 KST",
+  "status": "정상 (수집 40건, 일치 40건, 신규 0건)",
   "matches": [
     {
       "keyword": "모니터",
@@ -140,15 +140,6 @@
     {
       "keyword": "모니터",
       "category": "모니터",
-      "text": "에센셜모니터 S30GD (68.6cm) LS27D304GAKXKR 112,000원 구매하기",
-      "link": "https://www.familynet.kr/monitor/LS27D304GAKXKR/LS27D304GAKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/09/23/5ecce6ea-f2c1-4d06-868c-78ab39210291.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
-      "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
       "text": "QHD 오디세이 OLED G6 500Hz (LS27FG600S) LS27FG600SKXKR 719,000원 구매하기 세계최초 500Hz QD-OLED 모니터 OLED세이프가드+, OLED 3년 무상보증, 글레어프리 정확한 색 표현으로 사실감 넘치는 플레이",
       "link": "https://www.familynet.kr/monitor/LS27FG600SKXKR/LS27FG600SKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/09/23/85707c41-412e-475f-ace2-134431dbf204.png?$Q90_330_330_F_PNG$",
@@ -279,15 +270,6 @@
       "link": "https://www.familynet.kr/monitor/LS32CG550EKXKR/LS32CG550EKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/02/06/a6c806f8-2f50-4197-bce5-78fbde589189.jpg?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-19",
-      "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
-      "text": "고해상도 뷰피니티 S7(S70ED) 화이트 (80.0 cm) LS32D701EAKXKR 207,000원 구매하기 3840x2160 해상도의 선명한 화질 UHD 해상도 놀라운 선명도와 디테일의 차이 HDR10 빠르고 쉬운 모니터 세팅 손쉬운 스탠드 설치",
-      "link": "https://www.familynet.kr/monitor/LS32D701EAKXKR/LS32D701EAKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/02/06/ea7564fd-4c18-494c-904c-56ec4928fa41.jpg?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-17",
       "is_new": false
     },
     {
