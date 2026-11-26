@@ -1,7 +1,16 @@
 {
-  "checked_at": "2026-11-25 23:16 KST",
+  "checked_at": "2026-11-26 21:20 KST",
   "status": "정상 (수집 40건, 일치 40건, 신규 0건)",
   "matches": [
+    {
+      "keyword": "세탁건조기",
+      "category": "세탁건조기",
+      "text": "설치상품 다크스틸 Bespoke AI 콤보 25/18kg (177.8mm LCD) WD90F25AHS 2,003,800원 구매하기 세탁물 이동 없이 편리하게 하나로 세탁·건조하는 ONE 솔루션 국내 최대 용량으로 건조까지 빠르게 쾌속 코스 79분 한눈에 보여주고 자연스럽게 대화하는 AI 홈",
+      "link": "https://www.familynet.kr/laundry-combo/WD90F25AHS/WD90F25AHS/",
+      "image": "https://images.samsung.com/kdp/goods/2025/04/15/5700675b-2e15-4287-9ae7-b39bb69d2955.png?$Q90_330_330_F_PNG$",
+      "first_seen": "2026-11-26",
+      "is_new": false
+    },
     {
       "keyword": "모니터",
       "category": "모니터",
@@ -144,15 +153,6 @@
       "link": "https://www.familynet.kr/monitor/LS27FG600SKXKR/LS27FG600SKXKR/",
       "image": "https://images.samsung.com/kdp/goods/2025/09/23/85707c41-412e-475f-ace2-134431dbf204.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-17",
-      "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
-      "text": "고해상도 뷰피니티 S7(S70D) 블랙 (80.0 cm) LS32D706EBKXKR 232,000원 구매하기",
-      "link": "https://www.familynet.kr/monitor/LS32D706EBKXKR/LS32D706EBKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2025/09/23/8080e702-e030-465c-abd4-bda5e8d7e845.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
       "is_new": false
     },
     {
