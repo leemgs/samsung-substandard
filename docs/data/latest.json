@@ -1,6 +1,6 @@
 {
-  "checked_at": "2026-11-27 22:49 KST",
-  "status": "정상 (수집 37건, 일치 37건, 신규 0건)",
+  "checked_at": "2026-11-28 21:57 KST",
+  "status": "정상 (수집 36건, 일치 36건, 신규 0건)",
   "matches": [
     {
       "keyword": "모니터",
@@ -72,15 +72,6 @@
       "link": "https://www.familynet.kr/monitor/LS32HG806ESXKR/LS32HG806ESXKR/",
       "image": "https://images.samsung.com/kdp/goods/2026/07/28/9895cfa1-d7c1-46fc-89d8-40e9f18ce5d5.png?$Q90_330_330_F_PNG$",
       "first_seen": "2026-11-17",
-      "is_new": false
-    },
-    {
-      "keyword": "모니터",
-      "category": "모니터",
-      "text": "QHD 오디세이 G5 (LS27FG500) 180Hz LS27FG500EKXKR 192,000원 구매하기 QHD 해상도 · 고속 IPS 패널 180Hz 주사율 · 1ms 응답속도(GtG) HDR10 · 피봇/높이조절 스탠드",
-      "link": "https://www.familynet.kr/monitor/LS27FG500EKXKR/LS27FG500EKXKR/",
-      "image": "https://images.samsung.com/kdp/goods/2026/01/13/98b32e4b-4ca0-431f-a01a-8be8713156c3.png?$Q90_330_330_F_PNG$",
-      "first_seen": "2026-11-19",
       "is_new": false
     },
     {
